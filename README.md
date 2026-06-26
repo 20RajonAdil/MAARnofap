@@ -53,4 +53,4 @@ Plain HTML, CSS, and JavaScript. No frameworks, no build tools, no dependencies.
 
 ## License
 
-Released under the [MIT License](LICENSE).
+All rights reserved. See [LICENSE.md](LICENSE.md) — no use, copying, modification, or distribution is permitted without explicit written permission from the copyright holder. The source being visible in this repository does not grant any rights to it.
