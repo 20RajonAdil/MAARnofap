@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Adil MAAR NO FAP — Recovery System</title>
+<title>MAAR NO FAP — Recovery System</title>
 <meta name="description" content="A science-based personal recovery and habit-tracking platform.">
 <meta name="theme-color" content="#0a0e0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1028,8 +1029,10 @@ const STORAGE_KEY = 'maarnofap_state_v1';
 
 function todayISO(d){
   const dt = d ? new Date(d) : new Date();
-  dt.setHours(0,0,0,0);
-  return dt.toISOString().slice(0,10);
+  const year = dt.getFullYear();
+  const month = String(dt.getMonth()+1).padStart(2,'0');
+  const day = String(dt.getDate()).padStart(2,'0');
+  return `${year}-${month}-${day}`;
 }
 function daysBetween(a, b){
   return Math.round((new Date(b) - new Date(a)) / 86400000);
@@ -1168,8 +1171,9 @@ const QUOTES = [
   "The version of you who keeps the streak is built in the small decisions, not the big speeches.",
 ];
 function getQuoteOfDay(){
-  const day = Math.floor(Date.now() / 86400000);
-  return QUOTES[day % QUOTES.length];
+  const iso = todayISO();
+  const day = Math.floor(new Date(iso).getTime() / 86400000);
+  return QUOTES[((day % QUOTES.length) + QUOTES.length) % QUOTES.length];
 }
 function getRandomQuote(excludeIdx){
   let i = Math.floor(Math.random()*QUOTES.length);
