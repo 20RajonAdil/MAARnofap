@@ -627,6 +627,168 @@ input[type="range"]::-moz-range-thumb{
 .relapse-textarea{ width:100%; min-height:100px; padding:16px; background:var(--panel-light); border:1px solid var(--panel-border-strong); border-radius:12px; font-size:0.92rem; line-height:1.6; }
 .relapse-textarea::placeholder{ color:var(--text-faint); }
 
+/* ============ EMERGENCY URGE MODE ============ */
+.emergency-overlay{
+  position:fixed; inset:0; z-index:500;
+  background:radial-gradient(ellipse 90% 70% at 50% 0%, rgba(226,87,76,0.14), transparent 60%), var(--bg);
+  overflow-y:auto;
+  animation:fadeIn 0.35s var(--ease);
+}
+.emergency-overlay[hidden]{ display:none; }
+.emergency-shell{ max-width:640px; margin:0 auto; padding:48px 24px 80px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:28px; }
+.emergency-badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:20px; background:rgba(226,87,76,0.12); border:1px solid rgba(226,87,76,0.35); color:var(--danger-soft); font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; }
+.emergency-title{ font-size:clamp(1.7rem, 4vw, 2.4rem); line-height:1.2; }
+.emergency-sub{ color:var(--text-dim); max-width:480px; font-size:0.98rem; }
+
+.emergency-timer-ring{ position:relative; width:220px; height:220px; margin:8px 0; }
+.emergency-timer-ring svg{ transform:rotate(-90deg); width:100%; height:100%; }
+.emergency-timer-track{ fill:none; stroke:var(--panel-border-strong); stroke-width:8; }
+.emergency-timer-fill{ fill:none; stroke:var(--danger-soft); stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1s linear, stroke 0.6s var(--ease); }
+.emergency-timer-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.emergency-timer-num{ font-family:var(--font-mono); font-size:2.6rem; font-weight:700; color:var(--text); }
+.emergency-timer-label{ font-size:11.5px; color:var(--text-faint); letter-spacing:0.05em; text-transform:uppercase; margin-top:4px; }
+.emergency-timer-controls{ display:flex; gap:10px; }
+
+.emergency-section{ width:100%; padding:26px 24px; text-align:left; }
+.emergency-section h3{ font-size:1.02rem; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.emergency-section h3 svg{ color:var(--gold-soft); flex-shrink:0; }
+
+.breathing-orb-wrap{ display:flex; flex-direction:column; align-items:center; gap:14px; padding:10px 0; }
+.breathing-orb{
+  width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(52,211,153,0.55), rgba(16,185,129,0.12) 72%);
+  border:1px solid rgba(52,211,153,0.4);
+  transition:transform 4s cubic-bezier(0.45,0,0.55,1), box-shadow 4s cubic-bezier(0.45,0,0.55,1);
+  box-shadow:0 0 30px rgba(16,185,129,0.15);
+}
+.breathing-orb.is-inhale{ transform:scale(1.5); box-shadow:0 0 55px rgba(16,185,129,0.35); }
+.breathing-orb.is-exhale{ transform:scale(0.85); box-shadow:0 0 15px rgba(16,185,129,0.1); }
+.breathing-label{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--emerald-soft); min-height:18px; }
+
+.grounding-list{ display:flex; flex-direction:column; gap:10px; }
+.grounding-item{ display:flex; gap:12px; align-items:flex-start; padding:12px 14px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:12px; font-size:0.92rem; color:var(--text-dim); }
+.grounding-item strong{ color:var(--text); }
+.grounding-num{ flex-shrink:0; width:24px; height:24px; border-radius:50%; background:rgba(201,162,39,0.14); color:var(--gold-soft); font-family:var(--font-mono); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+
+.distraction-chip-grid{ display:flex; flex-wrap:wrap; gap:10px; }
+.distraction-chip{ padding:10px 16px; border-radius:20px; border:1px solid var(--panel-border-strong); background:var(--panel-light); font-size:0.86rem; color:var(--text-dim); }
+
+.reasons-list{ display:flex; flex-direction:column; gap:10px; }
+.reason-item{ padding:12px 14px; background:rgba(201,162,39,0.06); border:1px solid rgba(201,162,39,0.2); border-radius:12px; font-size:0.92rem; color:var(--text); font-style:italic; }
+.reasons-empty{ font-size:0.9rem; color:var(--text-faint); }
+.reasons-edit-row{ display:flex; gap:10px; margin-top:14px; }
+.reasons-edit-row input{ flex:1; padding:12px 14px; background:var(--panel-light); border:1px solid var(--panel-border-strong); border-radius:12px; font-size:0.9rem; }
+.reasons-edit-row input::placeholder{ color:var(--text-faint); }
+
+.emergency-final-actions{ width:100%; display:flex; flex-direction:column; gap:12px; margin-top:8px; }
+.btn-resisted{
+  width:100%; padding:20px; border-radius:18px;
+  background:linear-gradient(135deg, var(--emerald-soft), var(--emerald-dim));
+  color:#06140f; font-weight:700; font-size:1.02rem;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  box-shadow:0 10px 34px -10px var(--emerald-glow);
+  transition:transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.btn-resisted:hover{ transform:translateY(-2px); box-shadow:0 16px 42px -12px var(--emerald-glow); }
+.emergency-leave-row{ display:flex; justify-content:center; gap:10px; }
+.emergency-leave-row button{ font-size:0.85rem; color:var(--text-faint); padding:8px 14px; }
+.emergency-leave-row button:hover{ color:var(--text-dim); }
+
+/* ============ HIGH-RISK TIME ALERT BANNER ============ */
+.risk-alert-banner{
+  display:flex; align-items:flex-start; gap:14px;
+  padding:18px 22px; margin-bottom:24px;
+  background:linear-gradient(135deg, rgba(226,87,76,0.12), rgba(226,87,76,0.03));
+  border:1px solid rgba(226,87,76,0.3); border-radius:18px;
+  animation:cardIn 0.4s var(--ease);
+}
+.risk-alert-banner[hidden]{ display:none; }
+.risk-alert-icon{ flex-shrink:0; color:var(--danger-soft); margin-top:2px; }
+.risk-alert-body h4{ font-size:0.98rem; margin-bottom:4px; }
+.risk-alert-body p{ color:var(--text-dim); font-size:0.88rem; margin-bottom:10px; }
+.risk-alert-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.risk-alert-actions button{ font-size:0.84rem; padding:9px 16px; }
+
+/* ============ EXTRA DASHBOARD MODULE CARDS (Location, Sources, Replay, Resistance, Quality, Checklist, Reminders, Challenge) ============ */
+.module-card{ padding:26px 26px; margin-bottom:20px; }
+.module-card h3{ font-size:1.02rem; margin-bottom:6px; }
+.module-card > p.module-lede{ color:var(--text-dim); font-size:0.9rem; margin-bottom:20px; }
+
+.location-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:14px; }
+.location-card{ padding:18px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:14px; text-align:center; }
+.location-card.is-top{ border-color:var(--danger-soft); background:rgba(226,87,76,0.08); }
+.location-card-name{ font-family:var(--font-display); font-size:1.02rem; margin-bottom:4px; }
+.location-card-count{ font-family:var(--font-mono); font-size:1.6rem; font-weight:700; color:var(--danger-soft); }
+.location-card-pct{ font-size:11.5px; color:var(--text-faint); }
+
+.source-bars{ display:flex; flex-direction:column; gap:12px; }
+.source-bar-row{ display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:12px; }
+@media (max-width:560px){ .source-bar-row{ grid-template-columns:80px 1fr 32px; gap:8px; font-size:0.82rem; } }
+.source-bar-track{ height:9px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:8px; overflow:hidden; }
+.source-bar-fill{ height:100%; background:linear-gradient(90deg, var(--danger,#e2574c), var(--danger-soft)); border-radius:8px; transition:width 0.8s var(--ease); }
+.source-custom-row{ display:flex; gap:10px; margin-top:18px; }
+.source-custom-row input{ flex:1; padding:11px 14px; background:var(--panel-light); border:1px solid var(--panel-border-strong); border-radius:12px; font-size:0.88rem; }
+
+.replay-empty{ padding:40px 24px; text-align:center; color:var(--text-dim); background:var(--panel-light); border:1px solid var(--panel-border); border-radius:var(--radius-lg); }
+.replay-chain{ display:flex; flex-direction:column; gap:0; }
+.replay-step{ display:flex; gap:16px; position:relative; padding-bottom:22px; }
+.replay-step:last-child{ padding-bottom:0; }
+.replay-step::before{ content:''; position:absolute; left:13px; top:30px; bottom:0; width:2px; background:var(--panel-border-strong); }
+.replay-step:last-child::before{ display:none; }
+.replay-dot{ flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--panel-light); border:2px solid var(--gold-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--gold-soft); z-index:1; }
+.replay-step.is-interrupt-point .replay-dot{ border-color:var(--emerald-soft); background:rgba(16,185,129,0.14); color:var(--emerald-soft); }
+.replay-step-body{ padding-top:2px; }
+.replay-step-body h4{ font-size:0.94rem; margin-bottom:2px; }
+.replay-step-body p{ color:var(--text-dim); font-size:0.86rem; }
+.replay-select{ margin-bottom:20px; }
+.replay-select select{ width:100%; padding:12px 14px; background:var(--panel-light); border:1px solid var(--panel-border-strong); border-radius:12px; font-size:0.9rem; color:var(--text); }
+.replay-interrupt-note{ margin-top:18px; padding:16px 18px; border-left:3px solid var(--emerald-soft); background:rgba(16,185,129,0.06); border-radius:0 12px 12px 0; font-size:0.9rem; color:var(--text-dim); }
+
+.resistance-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+@media (max-width:640px){ .resistance-grid{ grid-template-columns:1fr; } }
+.resistance-stat{ padding:20px; text-align:center; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:14px; }
+.resistance-stat-num{ font-family:var(--font-mono); font-size:2rem; font-weight:700; color:var(--emerald-soft); }
+.resistance-stat-label{ font-size:12px; color:var(--text-faint); margin-top:4px; }
+.resistance-ring-wrap{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:22px; }
+
+.quality-grid{ display:grid; grid-template-columns:220px 1fr; gap:28px; align-items:center; }
+@media (max-width:700px){ .quality-grid{ grid-template-columns:1fr; } }
+.quality-factors{ display:flex; flex-direction:column; gap:14px; }
+.quality-factor-row{ display:flex; flex-direction:column; gap:6px; }
+.quality-factor-top{ display:flex; justify-content:space-between; font-size:0.88rem; }
+.quality-factor-top span:last-child{ font-family:var(--font-mono); color:var(--gold-soft); }
+.quality-factor-track{ height:8px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:8px; overflow:hidden; }
+.quality-factor-fill{ height:100%; background:linear-gradient(90deg, var(--emerald-dim), var(--emerald-soft)); border-radius:8px; transition:width 0.8s var(--ease); }
+
+.checklist-list{ display:flex; flex-direction:column; gap:10px; }
+.checklist-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:12px; cursor:pointer; transition:border-color 0.25s var(--ease), background 0.25s var(--ease); }
+.checklist-item:hover{ border-color:var(--emerald-dim); }
+.checklist-item.is-checked{ border-color:var(--emerald-soft); background:rgba(16,185,129,0.07); }
+.checklist-box{ width:22px; height:22px; border-radius:7px; border:2px solid var(--panel-border-strong); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:border-color 0.25s var(--ease), background 0.25s var(--ease); }
+.checklist-item.is-checked .checklist-box{ border-color:var(--emerald-soft); background:var(--emerald-soft); color:#06140f; }
+.checklist-text strong{ font-size:0.94rem; display:block; }
+.checklist-text small{ color:var(--text-dim); font-size:0.82rem; }
+.checklist-progress{ margin-top:18px; display:flex; align-items:center; gap:12px; }
+.checklist-progress-track{ flex:1; height:8px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:8px; overflow:hidden; }
+.checklist-progress-fill{ height:100%; background:linear-gradient(90deg, var(--emerald-dim), var(--emerald-soft)); border-radius:8px; transition:width 0.6s var(--ease); }
+.checklist-progress-label{ font-family:var(--font-mono); font-size:0.82rem; color:var(--text-faint); white-space:nowrap; }
+
+.challenge-card{ display:flex; gap:16px; align-items:flex-start; padding:22px 24px; background:linear-gradient(135deg, rgba(201,162,39,0.1), rgba(201,162,39,0.02)); border:1px solid rgba(201,162,39,0.28); border-radius:16px; margin-bottom:14px; }
+.challenge-icon{ width:40px; height:40px; border-radius:11px; background:rgba(201,162,39,0.16); color:var(--gold-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.challenge-card h4{ font-size:0.98rem; margin-bottom:4px; }
+.challenge-card p{ color:var(--text-dim); font-size:0.88rem; }
+.challenge-done-btn{ margin-top:10px; padding:8px 16px; font-size:0.82rem; border-radius:10px; background:rgba(16,185,129,0.14); color:var(--emerald-soft); border:1px solid rgba(16,185,129,0.3); }
+.challenge-done-btn.is-done{ background:var(--emerald-soft); color:#06140f; }
+
+.reminders-list{ display:flex; flex-direction:column; gap:10px; }
+.reminder-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 16px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:12px; }
+.reminder-row-text strong{ font-size:0.92rem; display:block; }
+.reminder-row-text small{ color:var(--text-dim); font-size:0.82rem; }
+.reminder-toggle{ width:42px; height:24px; border-radius:14px; background:var(--panel-border-strong); position:relative; flex-shrink:0; transition:background 0.25s var(--ease); }
+.reminder-toggle::after{ content:''; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:var(--text); transition:transform 0.25s var(--ease); }
+.reminder-toggle.is-on{ background:var(--emerald-dim); }
+.reminder-toggle.is-on::after{ transform:translateX(18px); background:#fff; }
+
 /* ============ TOAST ============ */
 .toast-stack{ position:fixed; bottom:24px; right:24px; z-index:300; display:flex; flex-direction:column; gap:10px; max-width:360px; }
 @media (max-width:560px){ .toast-stack{ left:16px; right:16px; bottom:16px; max-width:none; } }
@@ -854,6 +1016,23 @@ input[type="range"]::-moz-range-thumb{
         <span id="dashQuoteText">Loading today's thought…</span>
       </div>
 
+      <div class="risk-alert-banner" id="riskAlertBanner" hidden>
+        <span class="risk-alert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10.3 3.9L2.7 17.5c-.6 1 .1 2.3 1.3 2.3h16c1.2 0 1.9-1.3 1.3-2.3L13.7 3.9c-.6-1-2-1-2.6 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div class="risk-alert-body">
+          <h4 id="riskAlertTitle">Heads up — this is one of your higher-risk windows</h4>
+          <p id="riskAlertText"></p>
+          <div class="risk-alert-actions">
+            <button class="btn btn-danger-outline" id="riskAlertOpenEmergency">Open Emergency Mode</button>
+            <button class="btn btn-ghost" id="riskAlertDismiss">Dismiss for today</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger-outline btn-lg" id="btnEmergencyMode" style="width:100%; margin-bottom:18px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        I'm having an urge right now — Emergency Mode
+      </button>
+
       <div class="command-actions">
         <button class="action-btn action-btn-strong" id="btnStayedStrong">
           <span class="action-icon" aria-hidden="true">
@@ -885,6 +1064,7 @@ input[type="range"]::-moz-range-thumb{
       <button class="dash-tab" data-tab="journal">Journal</button>
       <button class="dash-tab" data-tab="coach">Coach</button>
       <button class="dash-tab" data-tab="milestones">Milestones</button>
+      <button class="dash-tab" data-tab="urgetoolkit">Urge &amp; Environment</button>
       <button class="dash-tab" data-tab="report">Report</button>
     </nav>
 
@@ -985,6 +1165,101 @@ input[type="range"]::-moz-range-thumb{
       <div class="milestone-timeline" id="milestoneTimeline"></div>
     </section>
 
+    <!-- URGE & ENVIRONMENT PANEL -->
+    <section class="dash-panel" id="panel-urgetoolkit" data-panel="urgetoolkit">
+      <div class="panel-head">
+        <h2>Urge &amp; Environment</h2>
+        <p>Everything about where, when, and why urges happen — plus the environment changes that reduce them.</p>
+      </div>
+
+      <div class="dash-tabs" id="urgeSubTabs" style="margin-bottom:24px;">
+        <button class="dash-tab is-active" data-subtab="location">High-Risk Locations</button>
+        <button class="dash-tab" data-subtab="sources">Trigger Sources</button>
+        <button class="dash-tab" data-subtab="replay">Recovery Replay</button>
+        <button class="dash-tab" data-subtab="resistance">Resistance Counter</button>
+        <button class="dash-tab" data-subtab="quality">Quality Score</button>
+        <button class="dash-tab" data-subtab="checklist">Safe Environment</button>
+        <button class="dash-tab" data-subtab="challenge">Daily Challenge</button>
+        <button class="dash-tab" data-subtab="reminders">Reminders</button>
+      </div>
+
+      <!-- High-Risk Locations -->
+      <div class="urge-subpanel is-active" id="subpanel-location">
+        <div class="module-card glass">
+          <h3>Where urges and relapses happen most</h3>
+          <p class="module-lede">Built from the locations you've logged after a relapse. Once a location stands out, it becomes a target for environment changes rather than willpower.</p>
+          <div id="locationContent"></div>
+        </div>
+      </div>
+
+      <!-- Trigger Sources -->
+      <div class="urge-subpanel" id="subpanel-sources" hidden>
+        <div class="module-card glass">
+          <h3>Trigger source ranking</h3>
+          <p class="module-lede">Which apps, sites, or media most often precede an urge or relapse. Log a source each time it plays a role, including your own custom ones.</p>
+          <div id="sourcesContent"></div>
+          <div class="source-custom-row">
+            <input type="text" id="customSourceInput" placeholder="Add a custom source (e.g. a specific site or app)" maxlength="40">
+            <button class="btn btn-ghost" id="btnAddCustomSource">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recovery Replay -->
+      <div class="urge-subpanel" id="subpanel-replay" hidden>
+        <div class="module-card glass">
+          <h3>Recovery replay</h3>
+          <p class="module-lede">Reconstructs the chain of events leading up to a relapse from what you logged, so you can see exactly where an interruption was possible.</p>
+          <div id="replayContent"></div>
+        </div>
+      </div>
+
+      <!-- Resistance Counter -->
+      <div class="urge-subpanel" id="subpanel-resistance" hidden>
+        <div class="module-card glass">
+          <h3>Urge resistance counter</h3>
+          <p class="module-lede">Every time you use Emergency Mode and choose "I Resisted," it counts here — a running record of urges faced and won, separate from your day-level streak.</p>
+          <div id="resistanceContent"></div>
+        </div>
+      </div>
+
+      <!-- Quality Score -->
+      <div class="urge-subpanel" id="subpanel-quality" hidden>
+        <div class="module-card glass">
+          <h3>Recovery quality score</h3>
+          <p class="module-lede">A broader picture than streak length alone — resistance rate, trigger avoidance, journal consistency, relapse frequency, and long-term trend, combined.</p>
+          <div id="qualityContent"></div>
+        </div>
+      </div>
+
+      <!-- Safe Environment Checklist -->
+      <div class="urge-subpanel" id="subpanel-checklist" hidden>
+        <div class="module-card glass">
+          <h3>Safe environment checklist</h3>
+          <p class="module-lede">Protective changes shown to lower relapse risk. Check off the ones you've put in place — this list is entirely yours to configure.</p>
+          <div id="checklistContent"></div>
+        </div>
+      </div>
+
+      <!-- Daily Challenge -->
+      <div class="urge-subpanel" id="subpanel-challenge" hidden>
+        <div class="module-card glass">
+          <h3>Today's recovery challenge</h3>
+          <p class="module-lede">A small, specific task generated from your own history — your highest-risk time, your top trigger, or a gap in your safe-environment setup.</p>
+          <div id="challengeContent"></div>
+        </div>
+      </div>
+
+      <!-- Reminders -->
+      <div class="urge-subpanel" id="subpanel-reminders" hidden>
+        <div class="module-card glass">
+          <h3>Personalized recovery reminders</h3>
+          <p class="module-lede">Toggle the reminders that matter to you. These are configured here and would fire as notifications in an installed app.</p>
+          <div id="remindersContent"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- REPORT PANEL -->
     <section class="dash-panel" id="panel-report" data-panel="report">
       <div class="panel-head">
@@ -1011,6 +1286,75 @@ input[type="range"]::-moz-range-thumb{
     <div class="modal-actions">
       <button class="btn btn-ghost" id="relapseBack" disabled>Back</button>
       <button class="btn btn-primary" id="relapseNext">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EMERGENCY URGE MODE ============ -->
+<div class="emergency-overlay" id="emergencyOverlay" hidden role="dialog" aria-modal="true" aria-label="Emergency urge support">
+  <div class="emergency-shell">
+    <span class="emergency-badge">Emergency urge mode</span>
+    <h1 class="emergency-title">You clicked in — that already matters.</h1>
+    <p class="emergency-sub">Urges peak and fade, usually within 10–20 minutes. This screen is built to get you through the next five. Nothing here is required in order — just work through it.</p>
+
+    <div class="emergency-timer-ring">
+      <svg viewBox="0 0 220 220">
+        <circle cx="110" cy="110" r="98" class="emergency-timer-track"/>
+        <circle cx="110" cy="110" r="98" class="emergency-timer-fill" id="emergencyTimerFill"/>
+      </svg>
+      <div class="emergency-timer-center">
+        <span class="emergency-timer-num" id="emergencyTimerNum">5:00</span>
+        <span class="emergency-timer-label">delay timer</span>
+      </div>
+    </div>
+    <div class="emergency-timer-controls">
+      <button class="btn btn-ghost" id="btnEmergencyPause">Pause</button>
+      <button class="btn btn-ghost" id="btnEmergencyReset">Reset to 5:00</button>
+    </div>
+
+    <div class="emergency-section glass">
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 3 8 7 11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Breathing exercise</h3>
+      <div class="breathing-orb-wrap">
+        <div class="breathing-orb" id="breathingOrb"></div>
+        <span class="breathing-label" id="breathingLabel">Tap start when ready</span>
+        <button class="btn btn-ghost" id="btnBreathingToggle">Start breathing guide</button>
+      </div>
+    </div>
+
+    <div class="emergency-section glass">
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>5-4-3-2-1 grounding</h3>
+      <div class="grounding-list">
+        <div class="grounding-item"><span class="grounding-num">5</span><span>Name <strong>5 things you can see</strong> around you right now.</span></div>
+        <div class="grounding-item"><span class="grounding-num">4</span><span>Name <strong>4 things you can touch</strong> or feel.</span></div>
+        <div class="grounding-item"><span class="grounding-num">3</span><span>Name <strong>3 things you can hear</strong>.</span></div>
+        <div class="grounding-item"><span class="grounding-num">2</span><span>Name <strong>2 things you can smell</strong> (or like the smell of).</span></div>
+        <div class="grounding-item"><span class="grounding-num">1</span><span>Name <strong>1 thing you're grateful for</strong> right now.</span></div>
+      </div>
+    </div>
+
+    <div class="emergency-section glass">
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Do something else instead</h3>
+      <div class="distraction-chip-grid" id="distractionChipGrid"></div>
+    </div>
+
+    <div class="emergency-section glass">
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21c-5-4-9-7.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 8-9 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Your reasons</h3>
+      <div id="emergencyReasonsList" class="reasons-list"></div>
+      <div class="reasons-edit-row">
+        <input type="text" id="emergencyReasonInput" placeholder="Add a personal reason to add to this list" maxlength="140">
+        <button class="btn btn-ghost" id="btnAddReason">Add</button>
+      </div>
+    </div>
+
+    <div class="emergency-final-actions">
+      <button class="btn-resisted" id="btnIResisted">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        I Resisted
+      </button>
+      <div class="emergency-leave-row">
+        <button id="btnEmergencyLogRelapse">This didn't work — log a relapse instead</button>
+        <button id="btnEmergencyClose">Close this screen</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1069,6 +1413,14 @@ function defaultState(){
     radarToday:null,         // { mood, stress, energy, urge, sleep, date }
     journal:[],              // { date, text }
     createdAt:null,
+    reasons:[],               // personal reasons shown in Emergency Mode
+    resistance:{ faced:0, resisted:0 },   // Urge Resistance Counter
+    sourceLog:{},              // { sourceName: count } — Trigger Source Ranking
+    customSources:[],          // user-added source names
+    checklist:{},              // { itemId: true|false } — Safe Environment Checklist
+    reminders:{},              // { reminderId: true|false } — Personalized Reminders
+    dismissedRiskAlertDate:null,
+    challengeCompletion:{},    // { 'YYYY-MM-DD': true }
   };
 }
 
@@ -1496,7 +1848,9 @@ function enterDashboard(){
   renderJournalPanel();
   renderCoachPanel();
   renderMilestonesPanel();
+  renderUrgeToolkit();
   renderReportPanel();
+  renderRiskAlertBanner();
 }
 
 function hasLoggedToday(){
@@ -1578,10 +1932,10 @@ document.getElementById('btnRelapsed').addEventListener('click', ()=> openRelaps
    DASHBOARD TABS
    ============================================================ */
 function renderDashTabs(){
-  document.querySelectorAll('.dash-tab').forEach(tab=>{
+  document.querySelectorAll('#dashTabs .dash-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
       const target = tab.getAttribute('data-tab');
-      document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('is-active'));
+      document.querySelectorAll('#dashTabs .dash-tab').forEach(t=>t.classList.remove('is-active'));
       tab.classList.add('is-active');
       document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('is-active'));
       document.getElementById('panel-'+target).classList.add('is-active');
@@ -1617,6 +1971,11 @@ const RELAPSE_STEPS = [
     id:'device', title:'What device or context was involved, if any?',
     type:'chips',
     options:['Phone','Laptop / computer','TV','No device','Prefer not to say']
+  },
+  {
+    id:'source', title:'Was a specific app, site, or media involved?',
+    type:'chips',
+    options:['Instagram','TikTok','Reddit','YouTube','Movies / TV','Google Images','Dating app','Messaging app','None of these','Other']
   },
   {
     id:'stressBefore', title:'How stressed were you in the hour before?',
@@ -1713,10 +2072,14 @@ function finishRelapseLog(){
     timeOfDay: relapseAnswers.timeOfDay || 'Unspecified',
     location: relapseAnswers.location || 'Unspecified',
     device: relapseAnswers.device || 'Unspecified',
+    source: relapseAnswers.source || 'Unspecified',
     stressBefore: relapseAnswers.stressBefore || 5,
     thoughtsBefore: relapseAnswers.thoughtsBefore || '',
     radar: state.radarToday && state.radarToday.date===today ? {...state.radarToday} : null,
   });
+  if(relapseAnswers.source && relapseAnswers.source !== 'None of these'){
+    state.sourceLog[relapseAnswers.source] = (state.sourceLog[relapseAnswers.source]||0) + 1;
+  }
   state.currentStreak = 0;
   state.lastLogDate = today;
   addXP(4); // small XP for honest logging — the act of reflecting still counts
@@ -1724,6 +2087,557 @@ function finishRelapseLog(){
   closeRelapseModal();
   showToast('info', 'Logged honestly. That\u2019s the part that actually moves the pattern detection forward.');
   enterDashboard();
+}
+
+/* ============================================================
+   EMERGENCY URGE MODE
+   ============================================================ */
+const DISTRACTION_IDEAS = [
+  'Do 20 push-ups or jumping jacks right now',
+  'Step outside for fresh air, even for 2 minutes',
+  'Splash cold water on your face',
+  'Text or call someone you trust',
+  'Put on one loud song and just listen',
+  'Tidy one small area near you',
+  'Write down exactly what you\u2019re feeling, unfiltered',
+  'Stretch for 3 minutes',
+  'Make a drink — tea, coffee, water, anything',
+  'Go to a different room entirely',
+];
+
+let emergencyTimerInterval = null;
+let emergencyTimerSeconds = 300;
+let emergencyTimerRunning = false;
+const EMERGENCY_TIMER_TOTAL = 300;
+const EMERGENCY_RING_CIRC = 2 * Math.PI * 98;
+
+let breathingInterval = null;
+let breathingRunning = false;
+
+function openEmergencyMode(){
+  state.resistance.faced += 1;
+  saveState();
+  document.getElementById('emergencyOverlay').hidden = false;
+  document.documentElement.style.overflow = 'hidden';
+  resetEmergencyTimer();
+  startEmergencyTimer();
+  renderDistractionChips();
+  renderEmergencyReasons();
+  window.scrollTo(0,0);
+}
+
+function closeEmergencyModeUI(){
+  document.getElementById('emergencyOverlay').hidden = true;
+  document.documentElement.style.overflow = '';
+  stopEmergencyTimer();
+  stopBreathing();
+}
+
+function resetEmergencyTimer(){
+  emergencyTimerSeconds = EMERGENCY_TIMER_TOTAL;
+  updateEmergencyTimerUI();
+}
+function startEmergencyTimer(){
+  stopEmergencyTimer();
+  emergencyTimerRunning = true;
+  document.getElementById('btnEmergencyPause').textContent = 'Pause';
+  emergencyTimerInterval = setInterval(()=>{
+    if(emergencyTimerSeconds > 0){
+      emergencyTimerSeconds--;
+      updateEmergencyTimerUI();
+    } else {
+      stopEmergencyTimer();
+    }
+  }, 1000);
+}
+function stopEmergencyTimer(){
+  if(emergencyTimerInterval) clearInterval(emergencyTimerInterval);
+  emergencyTimerInterval = null;
+  emergencyTimerRunning = false;
+}
+function updateEmergencyTimerUI(){
+  const m = Math.floor(emergencyTimerSeconds/60);
+  const s = emergencyTimerSeconds%60;
+  document.getElementById('emergencyTimerNum').textContent = `${m}:${String(s).padStart(2,'0')}`;
+  const fill = document.getElementById('emergencyTimerFill');
+  const frac = emergencyTimerSeconds/EMERGENCY_TIMER_TOTAL;
+  fill.style.strokeDasharray = EMERGENCY_RING_CIRC;
+  fill.style.strokeDashoffset = EMERGENCY_RING_CIRC * (1-frac);
+  fill.style.stroke = emergencyTimerSeconds <= 30 ? 'var(--emerald-soft)' : 'var(--danger-soft)';
+}
+
+document.getElementById('btnEmergencyPause').addEventListener('click', ()=>{
+  if(emergencyTimerRunning){
+    stopEmergencyTimer();
+    document.getElementById('btnEmergencyPause').textContent = 'Resume';
+  } else {
+    startEmergencyTimer();
+  }
+});
+document.getElementById('btnEmergencyReset').addEventListener('click', ()=>{
+  resetEmergencyTimer();
+  startEmergencyTimer();
+});
+
+function startBreathing(){
+  breathingRunning = true;
+  document.getElementById('btnBreathingToggle').textContent = 'Stop breathing guide';
+  const orb = document.getElementById('breathingOrb');
+  const label = document.getElementById('breathingLabel');
+  const cycle = [
+    { cls:'is-inhale', text:'Breathe in… 4 seconds', ms:4000 },
+    { cls:'', text:'Hold… 4 seconds', ms:4000 },
+    { cls:'is-exhale', text:'Breathe out… 6 seconds', ms:6000 },
+  ];
+  let i = 0;
+  function step(){
+    if(!breathingRunning) return;
+    const c = cycle[i % cycle.length];
+    orb.className = 'breathing-orb ' + c.cls;
+    label.textContent = c.text;
+    i++;
+    breathingInterval = setTimeout(step, c.ms);
+  }
+  step();
+}
+function stopBreathing(){
+  breathingRunning = false;
+  if(breathingInterval) clearTimeout(breathingInterval);
+  const orb = document.getElementById('breathingOrb');
+  if(orb) orb.className = 'breathing-orb';
+  const label = document.getElementById('breathingLabel');
+  if(label) label.textContent = 'Tap start when ready';
+  const btn = document.getElementById('btnBreathingToggle');
+  if(btn) btn.textContent = 'Start breathing guide';
+}
+document.getElementById('btnBreathingToggle').addEventListener('click', ()=>{
+  if(breathingRunning) stopBreathing(); else startBreathing();
+});
+
+function renderDistractionChips(){
+  const grid = document.getElementById('distractionChipGrid');
+  const shuffled = [...DISTRACTION_IDEAS].sort(()=>Math.random()-0.5).slice(0,6);
+  grid.innerHTML = shuffled.map(d=>`<span class="distraction-chip">${d}</span>`).join('');
+}
+
+function renderEmergencyReasons(){
+  const list = document.getElementById('emergencyReasonsList');
+  if(state.reasons.length === 0){
+    list.innerHTML = `<p class="reasons-empty">Add a reason below — things like "I want to feel proud tomorrow" or "I promised myself." They'll show up here every time you need them.</p>`;
+    return;
+  }
+  list.innerHTML = state.reasons.map((r,i)=>`<div class="reason-item">\u201c${escapeHTML(r)}\u201d</div>`).join('');
+}
+document.getElementById('btnAddReason').addEventListener('click', ()=>{
+  const input = document.getElementById('emergencyReasonInput');
+  const val = input.value.trim();
+  if(!val) return;
+  state.reasons.push(val);
+  saveState();
+  input.value = '';
+  renderEmergencyReasons();
+  showToast('success', 'Reason added — it will show up every time you open Emergency Mode.');
+});
+
+document.getElementById('btnEmergencyMode').addEventListener('click', openEmergencyMode);
+document.getElementById('btnEmergencyClose').addEventListener('click', closeEmergencyModeUI);
+document.getElementById('btnIResisted').addEventListener('click', ()=>{
+  state.resistance.resisted += 1;
+  addXP(8);
+  saveState();
+  closeEmergencyModeUI();
+  showToast('success', 'That urge is behind you now. Logged as resisted.');
+  if(document.getElementById('view-dashboard') && !document.getElementById('view-dashboard').hidden){
+    renderCommandCenter();
+    renderUrgeToolkit();
+  }
+});
+document.getElementById('btnEmergencyLogRelapse').addEventListener('click', ()=>{
+  closeEmergencyModeUI();
+  openRelapseModal();
+});
+
+/* ============================================================
+   HIGH-RISK TIME ALERTS
+   ============================================================ */
+function currentTimeBucket(){
+  const h = new Date().getHours();
+  if(h < 6) return 'Late night / can\u2019t sleep';
+  if(h < 11) return 'Early morning';
+  if(h < 14) return 'Midday';
+  if(h < 18) return 'Afternoon';
+  if(h < 23) return 'Evening';
+  return 'Late night / can\u2019t sleep';
+}
+
+function computeHighRiskTime(){
+  const relapses = state.logs.filter(l=>l.outcome==='relapse');
+  if(relapses.length < 3) return null;
+  const counts = tallyField(relapses, 'timeOfDay');
+  if(!counts[0]) return null;
+  const [label, count] = counts[0];
+  const share = count / relapses.length;
+  if(share < 0.3) return null;
+  return { label, count, total: relapses.length, share };
+}
+
+function renderRiskAlertBanner(){
+  const banner = document.getElementById('riskAlertBanner');
+  const risk = computeHighRiskTime();
+  const today = todayISO();
+  if(!risk || state.dismissedRiskAlertDate === today || risk.label !== currentTimeBucket()){
+    banner.hidden = true;
+    return;
+  }
+  banner.hidden = false;
+  document.getElementById('riskAlertText').textContent =
+    `${risk.label} has accounted for ${risk.count} of your last ${risk.total} relapses (${Math.round(risk.share*100)}%). This is a good moment to be proactive rather than reactive.`;
+}
+document.getElementById('riskAlertOpenEmergency').addEventListener('click', openEmergencyMode);
+document.getElementById('riskAlertDismiss').addEventListener('click', ()=>{
+  state.dismissedRiskAlertDate = todayISO();
+  saveState();
+  document.getElementById('riskAlertBanner').hidden = true;
+});
+
+/* ============================================================
+   URGE & ENVIRONMENT TOOLKIT — orchestrator + sub-tabs
+   ============================================================ */
+function renderUrgeToolkit(){
+  wireUrgeSubTabsOnce();
+  renderLocationPanel();
+  renderSourcesPanel();
+  renderReplayPanel();
+  renderResistancePanel();
+  renderQualityPanel();
+  renderChecklistPanel();
+  renderChallengePanel();
+  renderRemindersPanel();
+}
+
+let urgeSubTabsWired = false;
+function wireUrgeSubTabsOnce(){
+  if(urgeSubTabsWired) return;
+  urgeSubTabsWired = true;
+  document.querySelectorAll('#urgeSubTabs .dash-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const target = tab.getAttribute('data-subtab');
+      document.querySelectorAll('#urgeSubTabs .dash-tab').forEach(t=>t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      document.querySelectorAll('.urge-subpanel').forEach(p=> p.hidden = true);
+      document.getElementById('subpanel-'+target).hidden = false;
+    });
+  });
+}
+
+/* ---- High-Risk Location Detection ---- */
+function renderLocationPanel(){
+  const container = document.getElementById('locationContent');
+  const relapses = state.logs.filter(l=>l.outcome==='relapse');
+  if(relapses.length < 2){
+    container.innerHTML = `<div class="replay-empty">Log at least 2 relapses with a location for this to populate. You currently have ${relapses.length}.</div>`;
+    return;
+  }
+  const counts = tallyField(relapses, 'location');
+  const top = counts[0];
+  container.innerHTML = `<div class="location-grid">${counts.map(([name,count])=>{
+    const pct = Math.round((count/relapses.length)*100);
+    const isTop = top && name === top[0];
+    return `<div class="location-card${isTop?' is-top':''}">
+      <div class="location-card-name">${name}</div>
+      <div class="location-card-count">${count}</div>
+      <div class="location-card-pct">${pct}% of relapses</div>
+    </div>`;
+  }).join('')}</div>
+  ${top ? `<div class="replay-interrupt-note" style="margin-top:20px;">Your highest-risk location is <strong>${top[0]}</strong>. Consider a specific environment change there — device out of the room, a locked box for it overnight, or simply spending less unstructured time in that space.</div>` : ''}`;
+}
+
+/* ---- Trigger Source Ranking ---- */
+function renderSourcesPanel(){
+  const container = document.getElementById('sourcesContent');
+  const entries = Object.entries(state.sourceLog).sort((a,b)=>b[1]-a[1]);
+  if(entries.length === 0){
+    container.innerHTML = `<div class="replay-empty">No sources logged yet. Sources get added automatically when you fill out the relapse reflection, or you can add one manually below.</div>`;
+    return;
+  }
+  const max = entries[0][1];
+  container.innerHTML = `<div class="source-bars">${entries.map(([name,count])=>`
+    <div class="source-bar-row">
+      <span class="trigger-bar-label">${escapeHTML(name)}</span>
+      <div class="source-bar-track"><div class="source-bar-fill" style="width:${(count/max*100)}%"></div></div>
+      <span class="trigger-bar-count">${count}×</span>
+    </div>
+  `).join('')}</div>`;
+}
+document.getElementById('btnAddCustomSource').addEventListener('click', ()=>{
+  const input = document.getElementById('customSourceInput');
+  const val = input.value.trim();
+  if(!val) return;
+  state.sourceLog[val] = (state.sourceLog[val]||0) + 1;
+  if(!state.customSources.includes(val)) state.customSources.push(val);
+  saveState();
+  input.value = '';
+  renderSourcesPanel();
+  showToast('success', `Logged an occurrence of "${val}."`);
+});
+
+/* ---- Recovery Replay ---- */
+function renderReplayPanel(){
+  const container = document.getElementById('replayContent');
+  const relapses = state.logs.filter(l=>l.outcome==='relapse').slice().reverse();
+  if(relapses.length === 0){
+    container.innerHTML = `<div class="replay-empty">Once you log a relapse with details, you can replay its sequence here to see where it could have been interrupted.</div>`;
+    return;
+  }
+  const options = relapses.map((l,i)=>`<option value="${i}">${fmtDateLong(l.date)}</option>`).join('');
+  container.innerHTML = `
+    <div class="replay-select">
+      <select id="replayLogSelect">${options}</select>
+    </div>
+    <div id="replayChainContainer"></div>
+  `;
+  document.getElementById('replayLogSelect').addEventListener('change', (e)=>{
+    renderReplayChain(relapses[Number(e.target.value)]);
+  });
+  renderReplayChain(relapses[0]);
+}
+function renderReplayChain(log){
+  const el = document.getElementById('replayChainContainer');
+  if(!el || !log) return;
+  const steps = [
+    { title:'Time of day', detail: log.timeOfDay, interrupt:false },
+    { title:'Location', detail: log.location, interrupt:false },
+    { title:'Emotional state', detail: log.emotionalState, interrupt:false },
+    { title:'Trigger', detail: log.trigger, interrupt:false },
+    { title:'Source / media', detail: log.source && log.source!=='Unspecified' ? log.source : 'None logged', interrupt:true },
+    { title:'Device used', detail: log.device, interrupt:true },
+    { title:'Stress level beforehand', detail: (log.stressBefore||5)+'/10', interrupt:false },
+    { title:'Outcome', detail:'Relapse logged', interrupt:false },
+  ];
+  if(log.thoughtsBefore){
+    steps.splice(6, 0, { title:'Thoughts beforehand', detail: log.thoughtsBefore, interrupt:false });
+  }
+  el.innerHTML = `<div class="replay-chain">${steps.map((s,i)=>`
+    <div class="replay-step${s.interrupt?' is-interrupt-point':''}">
+      <span class="replay-dot">${i+1}</span>
+      <div class="replay-step-body">
+        <h4>${s.title}${s.interrupt?' — possible interrupt point':''}</h4>
+        <p>${escapeHTML(String(s.detail))}</p>
+      </div>
+    </div>
+  `).join('')}</div>
+  <div class="replay-interrupt-note">The marked steps are usually the easiest to break the chain at — swapping the device, closing the source, or leaving the location before the emotional state fully takes hold.</div>`;
+}
+
+/* ---- Urge Resistance Counter ---- */
+function renderResistancePanel(){
+  const container = document.getElementById('resistanceContent');
+  const { faced, resisted } = state.resistance;
+  const rate = faced > 0 ? Math.round((resisted/faced)*100) : 0;
+  container.innerHTML = `
+    <div class="resistance-grid">
+      <div class="resistance-stat"><div class="resistance-stat-num">${faced}</div><div class="resistance-stat-label">Urges faced</div></div>
+      <div class="resistance-stat"><div class="resistance-stat-num">${resisted}</div><div class="resistance-stat-label">Urges resisted</div></div>
+      <div class="resistance-stat"><div class="resistance-stat-num">${rate}%</div><div class="resistance-stat-label">Success rate</div></div>
+    </div>
+    <p style="color:var(--text-dim); font-size:0.88rem; margin-top:18px;">${faced===0 ? 'This fills in as you use Emergency Mode during real urges — every use counts as "faced," and choosing "I Resisted" counts toward your rate.' : rate >= 70 ? 'A strong resistance rate — the delay timer and grounding tools are clearly working for you.' : 'Every faced urge is data, regardless of outcome. Resistance rate tends to climb as you use Emergency Mode more consistently.'}</p>
+  `;
+}
+
+/* ---- Recovery Quality Score ---- */
+function computeQualityScore(){
+  const { faced, resisted } = state.resistance;
+  const resistanceRate = faced > 0 ? resisted/faced : 0.5;
+
+  const sourceTotal = Object.values(state.sourceLog).reduce((a,b)=>a+b,0);
+  const recentRelapses = state.logs.filter(l=>l.outcome==='relapse' && daysBetween(l.date, todayISO())<=30).length;
+  const triggerAvoidance = Math.max(0, 1 - Math.min(sourceTotal/10, 1));
+
+  const daysSinceStart = state.createdAt ? Math.max(1, daysBetween(state.createdAt, todayISO())) : 1;
+  const journalConsistency = Math.min(state.journal.length / Math.max(daysSinceStart*0.3, 1), 1);
+
+  const relapseFrequency = Math.max(0, 1 - Math.min(recentRelapses/10, 1));
+
+  const last30 = state.logs.filter(l => daysBetween(l.date, todayISO()) <= 30);
+  const first15 = last30.slice(0, Math.ceil(last30.length/2));
+  const second15 = last30.slice(Math.ceil(last30.length/2));
+  const rateOf = arr => arr.length ? arr.filter(l=>l.outcome==='strong').length/arr.length : 0.5;
+  const trend = last30.length >= 4 ? Math.max(0, Math.min(1, 0.5 + (rateOf(second15)-rateOf(first15)))) : 0.5;
+
+  const factors = [
+    { label:'Urges resisted', value: resistanceRate, weight:0.25 },
+    { label:'Trigger avoidance', value: triggerAvoidance, weight:0.2 },
+    { label:'Journal consistency', value: journalConsistency, weight:0.15 },
+    { label:'Relapse frequency (lower is better)', value: relapseFrequency, weight:0.2 },
+    { label:'Long-term trend', value: trend, weight:0.2 },
+  ];
+  const score = Math.round(factors.reduce((a,f)=>a+f.value*f.weight,0)*100);
+  return { score, factors };
+}
+function renderQualityPanel(){
+  const container = document.getElementById('qualityContent');
+  const { score, factors } = computeQualityScore();
+  const circumference = 2*Math.PI*68;
+  let ringColor = 'var(--danger-soft)';
+  if(score >= 70) ringColor = 'var(--emerald-soft)';
+  else if(score >= 40) ringColor = 'var(--gold-soft)';
+  container.innerHTML = `
+    <div class="quality-grid">
+      <div class="profile-score-ring" style="margin:0 auto;">
+        <svg viewBox="0 0 160 160" width="200" height="200">
+          <circle cx="80" cy="80" r="68" class="ring-track"/>
+          <circle cx="80" cy="80" r="68" class="ring-fill" style="stroke:${ringColor}; stroke-dasharray:${circumference}; stroke-dashoffset:${circumference-(circumference*score/100)};"/>
+        </svg>
+        <div class="profile-score-center">
+          <span class="profile-score-num">${score}</span>
+          <span class="profile-score-label">quality score</span>
+        </div>
+      </div>
+      <div class="quality-factors">
+        ${factors.map(f=>`
+          <div class="quality-factor-row">
+            <div class="quality-factor-top"><span>${f.label}</span><span>${Math.round(f.value*100)}%</span></div>
+            <div class="quality-factor-track"><div class="quality-factor-fill" style="width:${Math.round(f.value*100)}%"></div></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <p style="color:var(--text-dim); font-size:0.88rem; margin-top:20px;">Unlike the streak counter, this score doesn\u2019t reset to zero after a relapse — it reflects the broader shape of your recovery across several dimensions.</p>
+  `;
+}
+
+/* ---- Safe Environment Checklist ---- */
+const CHECKLIST_ITEMS = [
+  { id:'device_out_bedroom', title:'Device stays out of the bedroom overnight', sub:'Removes the highest-risk device/location combination for most people.' },
+  { id:'safesearch_on', title:'SafeSearch / content filtering enabled', sub:'On your main browser and any devices you use unsupervised.' },
+  { id:'social_limits', title:'Time limits set on social media apps', sub:'Even a soft daily cap reduces idle scrolling windows.' },
+  { id:'unfollowed_accounts', title:'Unfollowed or muted triggering accounts', sub:'Removes recurring exposure from your own feeds.' },
+  { id:'accountability_partner', title:'Told a trusted person or accountability partner', sub:'Social accountability is one of the most effective protective factors.' },
+  { id:'blocker_installed', title:'Content blocker or filter software installed', sub:'Adds friction at the exact moment willpower is lowest.' },
+  { id:'bedroom_lighting', title:'Bright light / lamp on at night instead of darkness', sub:'Reduces the late-night-alone-in-the-dark risk combination.' },
+  { id:'morning_routine', title:'A set first activity for waking up', sub:'Removes unstructured phone time in the first risky minutes of the day.' },
+];
+function renderChecklistPanel(){
+  const container = document.getElementById('checklistContent');
+  const checkedCount = CHECKLIST_ITEMS.filter(i=>state.checklist[i.id]).length;
+  container.innerHTML = `
+    <div class="checklist-list">
+      ${CHECKLIST_ITEMS.map(item=>`
+        <div class="checklist-item${state.checklist[item.id]?' is-checked':''}" data-id="${item.id}">
+          <span class="checklist-box">${state.checklist[item.id] ? '<svg width="14" height="14" viewBox=\'0 0 24 24\' fill=\'none\'><path d=\'M5 13l4 4L19 7\' stroke=\'currentColor\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>' : ''}</span>
+          <span class="checklist-text"><strong>${item.title}</strong><small>${item.sub}</small></span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="checklist-progress">
+      <div class="checklist-progress-track"><div class="checklist-progress-fill" style="width:${(checkedCount/CHECKLIST_ITEMS.length*100)}%"></div></div>
+      <span class="checklist-progress-label">${checkedCount} / ${CHECKLIST_ITEMS.length} in place</span>
+    </div>
+  `;
+  container.querySelectorAll('.checklist-item').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const id = el.getAttribute('data-id');
+      state.checklist[id] = !state.checklist[id];
+      saveState();
+      renderChecklistPanel();
+    });
+  });
+}
+
+/* ---- Dynamic Recovery Challenge Generator ---- */
+function generateDailyChallenge(){
+  const relapses = state.logs.filter(l=>l.outcome==='relapse');
+  const uncheckedItems = CHECKLIST_ITEMS.filter(i=>!state.checklist[i.id]);
+  const topLocation = relapses.length >= 2 ? tallyField(relapses,'location')[0] : null;
+  const topSource = Object.entries(state.sourceLog).sort((a,b)=>b[1]-a[1])[0];
+  const highRiskTime = computeHighRiskTime();
+
+  const pool = [];
+  if(uncheckedItems.length){
+    const item = uncheckedItems[0];
+    pool.push({ icon:'check', title:`Put this in place today: ${item.title}`, body: item.sub });
+  }
+  if(highRiskTime){
+    pool.push({ icon:'clock', title:`Plan something for ${highRiskTime.label.toLowerCase()}`, body:`This window accounts for a large share of your relapses. Schedule one specific activity to occupy it today.` });
+  }
+  if(topLocation){
+    pool.push({ icon:'pin', title:`Spend today's downtime outside "${topLocation[0]}"`, body:`This location shows up most in your relapse logs. Even one day of avoiding unstructured time there builds evidence it's changeable.` });
+  }
+  if(topSource){
+    pool.push({ icon:'source', title:`Take a 24-hour break from "${topSource[0]}"`, body:`This is your most-logged trigger source. A short deliberate break interrupts the habit loop around it.` });
+  }
+  pool.push({ icon:'reason', title:'Write down one reason recovery matters to you', body:'Add it to your Emergency Mode reasons list so future-you has it ready.' });
+  pool.push({ icon:'journal', title:'Journal for two minutes about how today is going', body:'Consistency in journaling is one of the strongest predictors of sustained recovery.' });
+
+  const dayIndex = Math.floor(new Date(todayISO()).getTime()/86400000);
+  return pool[dayIndex % pool.length];
+}
+const CHALLENGE_ICONS = {
+  check:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  clock:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  pin:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.5-7-11a7 7 0 1 1 14 0c0 4.5-7 11-7 11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>',
+  source:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 21h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  reason:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v.01M12 11v5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  journal:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 10h6M9 14h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+};
+function renderChallengePanel(){
+  const container = document.getElementById('challengeContent');
+  const challenge = generateDailyChallenge();
+  const done = !!state.challengeCompletion[todayISO()];
+  container.innerHTML = `
+    <div class="challenge-card">
+      <span class="challenge-icon">${CHALLENGE_ICONS[challenge.icon]||CHALLENGE_ICONS.reason}</span>
+      <div>
+        <h4>${challenge.title}</h4>
+        <p>${challenge.body}</p>
+        <button class="challenge-done-btn${done?' is-done':''}" id="btnChallengeDone">${done ? 'Completed today' : 'Mark as done'}</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('btnChallengeDone').addEventListener('click', ()=>{
+    const today = todayISO();
+    if(!state.challengeCompletion[today]){
+      state.challengeCompletion[today] = true;
+      addXP(6);
+      saveState();
+      showToast('success', 'Challenge complete. Nice work.');
+      renderChallengePanel();
+    }
+  });
+}
+
+/* ---- Personalized Recovery Reminders ---- */
+function getReminderDefs(){
+  const highRiskTime = computeHighRiskTime();
+  const defs = [
+    { id:'daily_log', title:'Daily check-in reminder', sub:'A nudge to log your day if you haven\u2019t yet.' },
+    { id:'radar_evening', title:'Evening Recovery Radar reminder', sub:'Rate mood, stress, and urge before risk builds overnight.' },
+    { id:'journal_reminder', title:'Journal reminder', sub:'A prompt to write two or three sentences, most days.' },
+    { id:'checklist_review', title:'Weekly safe-environment review', sub:'Revisit your checklist once a week to catch anything that slipped.' },
+  ];
+  if(highRiskTime){
+    defs.unshift({ id:'high_risk_time', title:`Alert before ${highRiskTime.label.toLowerCase()}`, sub:`Your highest-risk window, based on ${highRiskTime.total} logged relapses.` });
+  }
+  return defs;
+}
+function renderRemindersPanel(){
+  const container = document.getElementById('remindersContent');
+  const defs = getReminderDefs();
+  container.innerHTML = `<div class="reminders-list">${defs.map(d=>`
+    <div class="reminder-row">
+      <div class="reminder-row-text"><strong>${d.title}</strong><small>${d.sub}</small></div>
+      <span class="reminder-toggle${state.reminders[d.id]?' is-on':''}" data-id="${d.id}"></span>
+    </div>
+  `).join('')}</div>
+  <p style="color:var(--text-faint); font-size:0.82rem; margin-top:16px;">Reminders are configured here and stored on-device. In an installed app they would trigger as push notifications at the relevant times.</p>`;
+  container.querySelectorAll('.reminder-toggle').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const id = el.getAttribute('data-id');
+      state.reminders[id] = !state.reminders[id];
+      saveState();
+      el.classList.toggle('is-on');
+    });
+  });
 }
 
 /* ============================================================
@@ -2443,5 +3357,5 @@ init();
 })();
 </script>
 
-</body></body>
+</body>
 </html>
