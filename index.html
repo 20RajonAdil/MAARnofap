@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -781,12 +780,16 @@ input[type="range"]::-moz-range-thumb{
 .location-card-pct{ font-size:11.5px; color:var(--text-faint); }
 
 .source-bars{ display:flex; flex-direction:column; gap:12px; }
-.source-bar-row{ display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:12px; }
-@media (max-width:560px){ .source-bar-row{ grid-template-columns:80px 1fr 32px; gap:8px; font-size:0.82rem; } }
+.source-bar-row{ display:grid; grid-template-columns:130px 1fr 40px auto; align-items:center; gap:12px; }
+@media (max-width:560px){ .source-bar-row{ grid-template-columns:1fr; gap:8px; font-size:0.82rem; } }
 .source-bar-track{ height:9px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:8px; overflow:hidden; }
 .source-bar-fill{ height:100%; background:linear-gradient(90deg, var(--danger,#e2574c), var(--danger-soft)); border-radius:8px; transition:width 0.8s var(--ease); }
 .source-custom-row{ display:flex; gap:10px; margin-top:18px; }
 .source-custom-row input{ flex:1; padding:11px 14px; background:var(--panel-light); border:1px solid var(--panel-border-strong); border-radius:12px; font-size:0.88rem; }
+.source-pin-warning{ margin-top:10px; padding:12px 14px; background:rgba(226,87,76,0.07); border:1px solid rgba(226,87,76,0.25); border-radius:12px; font-size:0.82rem; color:var(--text-dim); }
+.source-pin-btn{ padding:7px 12px; font-size:0.76rem; border-radius:9px; background:rgba(201,162,39,0.12); color:var(--gold-soft); border:1px solid rgba(201,162,39,0.3); white-space:nowrap; }
+.source-pinned-badge{ display:inline-flex; align-items:center; gap:6px; padding:7px 12px; font-size:0.76rem; font-family:var(--font-mono); letter-spacing:0.03em; text-transform:uppercase; border-radius:9px; background:rgba(226,87,76,0.12); color:var(--danger-soft); border:1px solid rgba(226,87,76,0.3); white-space:nowrap; }
+.source-unpin-btn{ padding:7px 12px; font-size:0.76rem; border-radius:9px; background:var(--panel-light); color:var(--text-dim); border:1px solid var(--panel-border-strong); white-space:nowrap; }
 
 .replay-empty{ padding:40px 24px; text-align:center; color:var(--text-dim); background:var(--panel-light); border:1px solid var(--panel-border); border-radius:var(--radius-lg); }
 .replay-chain{ display:flex; flex-direction:column; gap:0; }
@@ -847,6 +850,37 @@ input[type="range"]::-moz-range-thumb{
 .reminder-toggle::after{ content:''; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:var(--text); transition:transform 0.25s var(--ease); }
 .reminder-toggle.is-on{ background:var(--emerald-dim); }
 .reminder-toggle.is-on::after{ transform:translateX(18px); background:#fff; }
+
+/* ============ POLICY PANEL ============ */
+.policy-mode-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+@media (max-width:760px){ .policy-mode-grid{ grid-template-columns:1fr; } }
+.policy-mode-card{
+  text-align:left;
+  padding:22px 20px;
+  border-radius:16px;
+  border:1px solid var(--panel-border-strong);
+  background:var(--panel-light);
+  transition:border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.policy-mode-card:hover{ border-color:var(--emerald-dim); transform:translateY(-2px); }
+.policy-mode-card.is-active{ border-color:var(--emerald-soft); background:rgba(16,185,129,0.10); }
+.policy-mode-card h4{ font-size:1.02rem; font-weight:600; margin-bottom:6px; }
+.policy-mode-card p{ color:var(--text-dim); font-size:0.86rem; }
+
+.policy-rule-list{ display:flex; flex-direction:column; gap:12px; margin-bottom:6px; }
+.policy-rule-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 18px; background:var(--panel-light); border:1px solid var(--panel-border); border-radius:14px; flex-wrap:wrap; }
+.policy-rule-text{ flex:1; min-width:200px; }
+.policy-rule-text strong{ font-size:0.94rem; display:block; }
+.policy-rule-text small{ color:var(--text-dim); font-size:0.82rem; }
+.policy-rule-controls{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.policy-severity-toggle{ display:inline-flex; gap:2px; padding:3px; background:var(--panel-border); border-radius:10px; flex-shrink:0; }
+.policy-severity-btn{ padding:6px 11px; border-radius:8px; font-size:0.76rem; color:var(--text-dim); white-space:nowrap; }
+.policy-severity-btn.is-active{ background:var(--emerald-dim); color:#fff; }
+.policy-remove-btn{ width:26px; height:26px; border-radius:50%; background:rgba(226,87,76,0.1); color:var(--danger-soft); font-size:1rem; line-height:1; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.policy-remove-btn:hover{ background:rgba(226,87,76,0.2); }
+.policy-mandatory-badge{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--gold-soft); background:rgba(201,162,39,0.12); border:1px solid rgba(201,162,39,0.3); padding:6px 10px; border-radius:8px; flex-shrink:0; white-space:nowrap; }
+.policy-contract-box{ white-space:pre-wrap; font-family:var(--font-mono); font-size:0.84rem; line-height:1.7; color:var(--text-dim); background:var(--panel-light); border:1px solid var(--panel-border); border-radius:14px; padding:20px 22px; margin-bottom:6px; }
+@media (max-width:560px){ .policy-rule-row{ flex-direction:column; align-items:flex-start; } .policy-rule-controls{ width:100%; justify-content:space-between; } }
 
 /* ============ TOAST ============ */
 .toast-stack{ position:fixed; bottom:24px; right:24px; z-index:300; display:flex; flex-direction:column; gap:10px; max-width:360px; }
@@ -1177,6 +1211,7 @@ input[type="range"]::-moz-range-thumb{
       <button class="dash-tab" data-tab="coach">Coach</button>
       <button class="dash-tab" data-tab="milestones">Milestones</button>
       <button class="dash-tab" data-tab="urgetoolkit">Urge &amp; Environment</button>
+      <button class="dash-tab" data-tab="policy">Policy</button>
       <button class="dash-tab" data-tab="report">Report</button>
       <button class="dash-tab" data-tab="settings">Settings</button>
     </nav>
@@ -1369,6 +1404,60 @@ input[type="range"]::-moz-range-thumb{
           <h3>Personalized recovery reminders</h3>
           <p class="module-lede">Toggle the reminders that matter to you. These are configured here and would fire as notifications in an installed app.</p>
           <div id="remindersContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLICY PANEL -->
+    <section class="dash-panel" id="panel-policy" data-panel="policy">
+      <div class="panel-head">
+        <h2>Recovery Policy</h2>
+        <p>Your own definition of what breaks the streak, what doesn't, and what you're committing to in order to protect it. Nothing here is generic — it only reflects what you set below.</p>
+      </div>
+
+      <div class="module-card glass">
+        <h3>Choose a starting mode</h3>
+        <p class="module-lede">Pick a preset to start from, or set every rule yourself in Custom. Any manual change you make below switches you to Custom automatically.</p>
+        <div class="policy-mode-grid" id="policyModeGrid"></div>
+      </div>
+
+      <div class="module-card glass">
+        <h3>What breaks your streak</h3>
+        <p class="module-lede">Turn each one on or off, and decide whether it fully resets your streak or only logs as a slip. Add a rule of your own at the bottom if something's missing.</p>
+        <div class="policy-rule-list" id="policyBreakRulesList"></div>
+        <div class="reasons-edit-row">
+          <input type="text" id="policyCustomRuleInput" placeholder="Add a rule of your own" maxlength="80">
+          <button class="btn btn-ghost" id="btnAddPolicyRule" style="border:1px solid var(--panel-border-strong);">Add</button>
+        </div>
+      </div>
+
+      <div class="module-card glass">
+        <h3>What doesn't count</h3>
+        <p class="module-lede">Reference points so ambiguous moments stop costing you sleep. Remove any that don't apply to you, or add your own.</p>
+        <div class="backup-list" id="policyNotCountedList" style="max-height:none;"></div>
+        <div class="reasons-edit-row" style="margin-top:14px;">
+          <input type="text" id="policyCustomNotCountedInput" placeholder="Add a clarification of your own" maxlength="120">
+          <button class="btn btn-ghost" id="btnAddPolicyNotCounted" style="border:1px solid var(--panel-border-strong);">Add</button>
+        </div>
+      </div>
+
+      <div class="module-card glass">
+        <h3>What you commit to, to protect it</h3>
+        <p class="module-lede">The habits and boundaries you're relying on to keep the streak going. This list is entirely yours — remove or add freely.</p>
+        <div class="backup-list" id="policyCommitmentsList" style="max-height:none;"></div>
+        <div class="reasons-edit-row" style="margin-top:14px;">
+          <input type="text" id="policyCustomCommitmentInput" placeholder="Add a commitment of your own" maxlength="120">
+          <button class="btn btn-ghost" id="btnAddPolicyCommitment" style="border:1px solid var(--panel-border-strong);">Add</button>
+        </div>
+      </div>
+
+      <div class="module-card glass policy-contract-card">
+        <h3>Your Recovery Contract</h3>
+        <p class="module-lede">Everything above, combined into one plain-language reference. Last updated: <span id="policyUpdatedAt">—</span></p>
+        <pre class="policy-contract-box" id="policyContractText"></pre>
+        <div class="settings-btn-row">
+          <button class="btn btn-ghost" id="btnCopyPolicyContract" style="border:1px solid var(--panel-border-strong);">Copy</button>
+          <button class="btn btn-ghost" id="btnDownloadPolicyContract" style="border:1px solid var(--panel-border-strong);">Download as text</button>
         </div>
       </div>
     </section>
@@ -1609,6 +1698,55 @@ const RANKS = [
   { name:'Grand Master',minXP:2300 },
 ];
 
+/* ============================================================
+   RECOVERY POLICY — default rule set
+   The "law" of what counts as breaking the streak, what doesn't,
+   and what the person commits to in order to protect it. Fully
+   editable from the Policy tab; these are just starting points.
+   ============================================================ */
+function defaultPolicyBreakRules(){
+  return [
+    { id:'pornography',  label:'Viewing pornography',                 desc:'Deliberately viewing explicit images or video.',                    enabled:true,  severity:'reset', custom:false },
+    { id:'masturbation', label:'Masturbation',                        desc:'Any deliberate act, with or without pornography.',                   enabled:true,  severity:'reset', custom:false, mandatory:true },
+    { id:'edging',       label:'Edging',                              desc:'Deliberately approaching climax without finishing.',                 enabled:false, severity:'reset', custom:false },
+    { id:'sexting',      label:'Sexting / cybersex with strangers',   desc:'Sexual chat, calls, or exchanges with people online.',               enabled:false, severity:'reset', custom:false },
+    { id:'erotica',      label:'Erotica / explicit text',             desc:'Reading sexually explicit stories or written material.',            enabled:false, severity:'reset', custom:false },
+    { id:'fantasy',      label:'Prolonged deliberate fantasizing',    desc:'Intentionally dwelling on sexual fantasy, not a passing thought.',   enabled:false, severity:'reset', custom:false },
+  ];
+}
+function defaultPolicyNotCounted(){
+  return [
+    { id:'nocturnal',      label:'Nocturnal emissions',                                desc:'Involuntary, so it doesn\u2019t count against you.' },
+    { id:'accidental',     label:'Accidental exposure',                                desc:'A pop-up or unexpected image you close or leave immediately.' },
+    { id:'nonsexual',      label:'Non-sexual nudity',                                  desc:'Medical, educational, or artistic contexts.' },
+    { id:'passingthought', label:'Passing involuntary thoughts',                       desc:'A stray thought you don\u2019t dwell on.' },
+    { id:'partner',        label:'Consensual intimacy with a real-life partner',       desc:'This tracker is about the habit, not your relationship.' },
+  ];
+}
+function defaultPolicyCommitments(){
+  return [
+    { id:'journal',           label:'Journal at least a few sentences daily' },
+    { id:'emergency',         label:'Use Emergency Mode at urge intensity 7+/10' },
+    { id:'nightcurfew',       label:'No unsupervised phone or laptop after midnight' },
+    { id:'leaveimmediately',  label:'Leave immediately if a trigger appears unexpectedly' },
+    { id:'eveningradar',      label:'Review the Recovery Radar every evening' },
+    { id:'reachout',          label:'Reach out to someone before a high-risk moment, not just after' },
+  ];
+}
+function defaultPolicy(){
+  return {
+    mode:'standard',                            // 'standard' | 'hard' | 'custom'
+    breakRules: defaultPolicyBreakRules(),
+    notCounted: defaultPolicyNotCounted(),
+    commitments: defaultPolicyCommitments(),
+    updatedAt: null,
+  };
+}
+const POLICY_PRESETS = {
+  standard: ['pornography','masturbation'],
+  hard: ['pornography','masturbation','edging','sexting','erotica','fantasy'],
+};
+
 function defaultState(){
   return {
     onboarded:false,
@@ -1626,10 +1764,12 @@ function defaultState(){
     resistance:{ faced:0, resisted:0 },   // Urge Resistance Counter
     sourceLog:{},              // { sourceName: count } — Trigger Source Ranking
     customSources:[],          // user-added source names
+    pinnedSources:{},          // { sourceName: true } — locked/blocked sources, code-gated to unpin
     checklist:{},              // { itemId: true|false } — Safe Environment Checklist
     reminders:{},              // { reminderId: true|false } — Personalized Reminders
     dismissedRiskAlertDate:null,
     challengeCompletion:{},    // { 'YYYY-MM-DD': true }
+    policy: defaultPolicy(),   // personal "what breaks the streak" rules — see Policy tab
   };
 }
 
@@ -1711,13 +1851,14 @@ const MAX_BACKUPS = 15;
 const FILE_SCHEMA = {
   'profile.json':     s => ({ onboarded:s.onboarded, onboardingAnswers:s.onboardingAnswers, profile:s.profile, createdAt:s.createdAt, reasons:s.reasons }),
   'entries.json':     s => ({ logs:s.logs, radarToday:s.radarToday, lastLogDate:s.lastLogDate }),
-  'relapse.json':     s => ({ sourceLog:s.sourceLog, customSources:s.customSources }),
+  'relapse.json':     s => ({ sourceLog:s.sourceLog, customSources:s.customSources, pinnedSources:s.pinnedSources }),
   'statistics.json':  s => ({ xp:s.xp, currentStreak:s.currentStreak, longestStreak:s.longestStreak, resistance:s.resistance, dismissedRiskAlertDate:s.dismissedRiskAlertDate }),
   'journal.json':     s => ({ journal:s.journal }),
   'settings.json':    s => ({ reminders:s.reminders }),
   'habits.json':      s => ({ checklist:s.checklist }),
   'goals.json':       s => ({}),
   'achievements.json':s => ({ challengeCompletion:s.challengeCompletion }),
+  'policy.json':      s => ({ policy:s.policy }),
 };
 
 function partitionState(s){
@@ -2397,6 +2538,7 @@ function enterDashboard(){
   renderCoachPanel();
   renderMilestonesPanel();
   renderUrgeToolkit();
+  renderPolicyPanel();
   renderReportPanel();
   renderRiskAlertBanner();
   renderSettingsPanel();
@@ -2498,6 +2640,12 @@ function renderDashTabs(){
    ============================================================ */
 const RELAPSE_STEPS = [
   {
+    id:'policyRules', title:'Which of your own rules did this involve?',
+    type:'chips-multi',
+    sub:'Select all that apply. Based on your Policy settings, this decides whether it fully resets your streak or logs as a lesser slip.',
+    getOptions: () => state.policy.breakRules.filter(r=>r.enabled).map(r=>r.label)
+  },
+  {
     id:'trigger', title:'What triggered it, as best you can tell?',
     type:'chips',
     options:['Stress','Boredom','Loneliness','Sadness','Habit / autopilot','Saw something by accident','Conflict with someone','Couldn\u2019t sleep','Other']
@@ -2574,6 +2722,41 @@ function renderRelapseStep(){
         relapseAnswers[step.id] = chip.getAttribute('data-val');
       });
     });
+  } else if(step.type === 'chips-multi'){
+    const opts = typeof step.getOptions === 'function' ? step.getOptions() : (step.options||[]);
+    const existingArr = Array.isArray(existing) ? existing : [];
+    body.innerHTML = `
+      <p class="relapse-q-title">${step.title}</p>
+      ${step.sub ? `<p class="onb-question-sub" style="margin-bottom:18px;">${step.sub}</p>` : ''}
+      <div class="relapse-chip-grid" role="group">
+        ${opts.map((o,i)=>`<button class="relapse-chip${existingArr.includes(o)?' is-selected':''}" data-idx="${i}" aria-pressed="${existingArr.includes(o)}">${escapeHTML(o)}</button>`).join('')}
+        <button class="relapse-chip${existingArr.includes('__none__')?' is-selected':''}" data-idx="none" aria-pressed="${existingArr.includes('__none__')}">None of these / not sure</button>
+      </div>
+    `;
+    body.querySelectorAll('.relapse-chip').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        const idxAttr = chip.getAttribute('data-idx');
+        const val = idxAttr === 'none' ? '__none__' : opts[Number(idxAttr)];
+        let arr = Array.isArray(relapseAnswers[step.id]) ? relapseAnswers[step.id].slice() : [];
+        if(val === '__none__'){
+          arr = arr.includes('__none__') ? [] : ['__none__'];
+          relapseAnswers[step.id] = arr;
+          body.querySelectorAll('.relapse-chip').forEach(c=>{
+            const cv = c.getAttribute('data-idx')==='none' ? '__none__' : opts[Number(c.getAttribute('data-idx'))];
+            const on = arr.includes(cv);
+            c.classList.toggle('is-selected', on);
+            c.setAttribute('aria-pressed', on);
+          });
+        } else {
+          arr = arr.filter(v=>v!=='__none__');
+          if(arr.includes(val)){ arr = arr.filter(v=>v!==val); chip.classList.remove('is-selected'); chip.setAttribute('aria-pressed','false'); }
+          else { arr.push(val); chip.classList.add('is-selected'); chip.setAttribute('aria-pressed','true'); }
+          relapseAnswers[step.id] = arr;
+          const noneChip = body.querySelector('.relapse-chip[data-idx="none"]');
+          if(noneChip){ noneChip.classList.remove('is-selected'); noneChip.setAttribute('aria-pressed','false'); }
+        }
+      });
+    });
   } else if(step.type === 'slider'){
     const val = existing !== undefined ? existing : step.default;
     body.innerHTML = `
@@ -2614,6 +2797,17 @@ document.getElementById('relapseBack').addEventListener('click', ()=>{
 
 function finishRelapseLog(){
   const today = todayISO();
+
+  // Match the selected policy-rule labels back to the person's own rule
+  // definitions to decide how this log affects the streak. Unselected or
+  // "not sure" defaults to a full reset — the safe, conservative outcome.
+  const selectedRuleLabels = (relapseAnswers.policyRules || []).filter(v=>v!=='__none__');
+  const matchedRules = selectedRuleLabels.map(lbl => state.policy.breakRules.find(r=>r.label===lbl)).filter(Boolean);
+  let streakImpact = 'reset';
+  if(matchedRules.length > 0 && matchedRules.every(r=>r.severity==='slip')){
+    streakImpact = 'slip';
+  }
+
   state.logs.push({
     date: today,
     outcome:'relapse',
@@ -2625,17 +2819,25 @@ function finishRelapseLog(){
     source: relapseAnswers.source || 'Unspecified',
     stressBefore: relapseAnswers.stressBefore || 5,
     thoughtsBefore: relapseAnswers.thoughtsBefore || '',
+    ruleBreaks: selectedRuleLabels,
+    streakImpact: streakImpact,
     radar: state.radarToday && state.radarToday.date===today ? {...state.radarToday} : null,
   });
   if(relapseAnswers.source && relapseAnswers.source !== 'None of these'){
     state.sourceLog[relapseAnswers.source] = (state.sourceLog[relapseAnswers.source]||0) + 1;
   }
-  state.currentStreak = 0;
+  if(streakImpact === 'slip'){
+    state.currentStreak = Math.max(0, state.currentStreak - 1);
+  } else {
+    state.currentStreak = 0;
+  }
   state.lastLogDate = today;
   addXP(4); // small XP for honest logging — the act of reflecting still counts
   saveState();
   closeRelapseModal();
-  showToast('info', 'Logged honestly. That\u2019s the part that actually moves the pattern detection forward.');
+  showToast('info', streakImpact === 'slip'
+    ? 'Logged as a slip per your policy — streak reduced by one day, not reset.'
+    : 'Logged honestly. That\u2019s the part that actually moves the pattern detection forward.');
   enterDashboard();
 }
 
@@ -2903,6 +3105,32 @@ function renderLocationPanel(){
 }
 
 /* ---- Trigger Source Ranking ---- */
+const PIN_UNLOCK_CODE = 'FHFw20Y6';
+
+function pinSource(name){
+  const confirmed = window.confirm(
+    `Pin "${name}"?\n\nOnce pinned, you won't be able to remove it yourself. To unpin it later, you'll need the recovery code from MAAR NO FAP support.\n\nThis can't be undone by you alone — pin it anyway?`
+  );
+  if(!confirmed) return;
+  state.pinnedSources[name] = true;
+  saveState();
+  renderSourcesPanel();
+  showToast('warn', `"${name}" is now pinned and locked.`);
+}
+
+function unpinSource(name){
+  const code = window.prompt('Enter the recovery code from MAAR NO FAP support to unpin this source:');
+  if(code === null) return;
+  if(code.trim() === PIN_UNLOCK_CODE){
+    delete state.pinnedSources[name];
+    saveState();
+    renderSourcesPanel();
+    showToast('success', `"${name}" has been unpinned.`);
+  } else {
+    showToast('warn', 'Incorrect code. Contact MAAR NO FAP support for help unpinning this source.');
+  }
+}
+
 function renderSourcesPanel(){
   const container = document.getElementById('sourcesContent');
   const entries = Object.entries(state.sourceLog).sort((a,b)=>b[1]-a[1]);
@@ -2911,24 +3139,41 @@ function renderSourcesPanel(){
     return;
   }
   const max = entries[0][1];
-  container.innerHTML = `<div class="source-bars">${entries.map(([name,count])=>`
+  container.innerHTML = `<div class="source-bars">${entries.map(([name,count])=>{
+    const pinned = !!state.pinnedSources[name];
+    return `
     <div class="source-bar-row">
       <span class="trigger-bar-label">${escapeHTML(name)}</span>
       <div class="source-bar-track"><div class="source-bar-fill" style="width:${(count/max*100)}%"></div></div>
       <span class="trigger-bar-count">${count}×</span>
-    </div>
-  `).join('')}</div>`;
+      ${pinned
+        ? `<span style="display:flex; gap:8px; align-items:center;"><span class="source-pinned-badge">\ud83d\udd12 Pinned</span><button class="source-unpin-btn" data-name="${escapeHTML(name)}" data-action="unpin-source" type="button">Unpin</button></span>`
+        : `<button class="source-pin-btn" data-name="${escapeHTML(name)}" data-action="pin-source" type="button">Pin</button>`}
+    </div>`;
+  }).join('')}</div>`;
+
+  container.querySelectorAll('[data-action="pin-source"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> pinSource(btn.getAttribute('data-name')));
+  });
+  container.querySelectorAll('[data-action="unpin-source"]').forEach(btn=>{
+    btn.addEventListener('click', ()=> unpinSource(btn.getAttribute('data-name')));
+  });
 }
 document.getElementById('btnAddCustomSource').addEventListener('click', ()=>{
   const input = document.getElementById('customSourceInput');
   const val = input.value.trim();
   if(!val) return;
+  const confirmed = window.confirm(
+    `Add and pin "${val}"?\n\nAdding a source here immediately pins it as a locked, blocked entry in your list. Once pinned, you won't be able to remove it yourself — you'll need the recovery code from MAAR NO FAP support to unpin it.\n\nContinue?`
+  );
+  if(!confirmed) return;
   state.sourceLog[val] = (state.sourceLog[val]||0) + 1;
   if(!state.customSources.includes(val)) state.customSources.push(val);
+  state.pinnedSources[val] = true;
   saveState();
   input.value = '';
   renderSourcesPanel();
-  showToast('success', `Logged an occurrence of "${val}."`);
+  showToast('warn', `"${val}" logged and pinned.`);
 });
 
 /* ---- Recovery Replay ---- */
@@ -2962,11 +3207,14 @@ function renderReplayChain(log){
     { title:'Source / media', detail: log.source && log.source!=='Unspecified' ? log.source : 'None logged', interrupt:true },
     { title:'Device used', detail: log.device, interrupt:true },
     { title:'Stress level beforehand', detail: (log.stressBefore||5)+'/10', interrupt:false },
-    { title:'Outcome', detail:'Relapse logged', interrupt:false },
   ];
   if(log.thoughtsBefore){
-    steps.splice(6, 0, { title:'Thoughts beforehand', detail: log.thoughtsBefore, interrupt:false });
+    steps.push({ title:'Thoughts beforehand', detail: log.thoughtsBefore, interrupt:false });
   }
+  if(log.ruleBreaks && log.ruleBreaks.length){
+    steps.push({ title:'Rules broken (per your policy)', detail: log.ruleBreaks.join(', ') + (log.streakImpact==='slip' ? ' — logged as a slip' : ' — full reset'), interrupt:false });
+  }
+  steps.push({ title:'Outcome', detail:'Relapse logged', interrupt:false });
   el.innerHTML = `<div class="replay-chain">${steps.map((s,i)=>`
     <div class="replay-step${s.interrupt?' is-interrupt-point':''}">
       <span class="replay-dot">${i+1}</span>
@@ -3187,6 +3435,243 @@ function renderRemindersPanel(){
       saveState();
       el.classList.toggle('is-on');
     });
+  });
+}
+
+/* ============================================================
+   RECOVERY POLICY — the "what breaks the streak / what protects
+   it" system. Fully personal: everything below is just a sensible
+   starting point that the person can turn on/off, retag, remove,
+   or add to. Break rules also feed the relapse-logging flow so the
+   policy has real effect on the streak, not just reference text.
+   ============================================================ */
+function applyPolicyPreset(modeName){
+  const enabledIds = POLICY_PRESETS[modeName] || [];
+  state.policy.breakRules.forEach(r=>{
+    if(!r.custom){
+      r.enabled = r.mandatory ? true : enabledIds.includes(r.id);
+      if(r.enabled) r.severity = 'reset';
+    }
+  });
+  state.policy.mode = modeName;
+  state.policy.updatedAt = new Date().toISOString();
+  saveState();
+  renderPolicyPanel();
+}
+
+function buildPolicyContractText(){
+  const p = state.policy;
+  const resetRules = p.breakRules.filter(r=>r.enabled && r.severity==='reset').map(r=>r.label);
+  const slipRules = p.breakRules.filter(r=>r.enabled && r.severity==='slip').map(r=>r.label);
+  const notCounted = p.notCounted.map(r=>r.label);
+  const commitments = p.commitments.map(r=>r.label);
+  const modeLabel = p.mode==='standard' ? 'Standard' : p.mode==='hard' ? 'Hard Mode' : 'Custom';
+
+  const lines = [];
+  lines.push('MY RECOVERY POLICY');
+  lines.push('');
+  lines.push('Breaks my streak completely:');
+  lines.push(resetRules.length ? resetRules.map(l=>'  \u2022 '+l).join('\n') : '  \u2022 (none set)');
+  if(slipRules.length){
+    lines.push('');
+    lines.push('Logged as a slip, but does not reset my streak:');
+    lines.push(slipRules.map(l=>'  \u2022 '+l).join('\n'));
+  }
+  lines.push('');
+  lines.push('Does NOT count:');
+  lines.push(notCounted.length ? notCounted.map(l=>'  \u2022 '+l).join('\n') : '  \u2022 (none set)');
+  lines.push('');
+  lines.push('I commit to:');
+  lines.push(commitments.length ? commitments.map(l=>'  \u2022 '+l).join('\n') : '  \u2022 (none set)');
+  lines.push('');
+  lines.push('Mode: '+modeLabel);
+  lines.push('Last updated: '+(p.updatedAt ? fmtDateTime(new Date(p.updatedAt)) : 'Not yet saved'));
+  return lines.join('\n');
+}
+
+function renderPolicyBreakRules(){
+  const container = document.getElementById('policyBreakRulesList');
+  const items = state.policy.breakRules;
+  container.innerHTML = items.map(item=>`
+    <div class="policy-rule-row">
+      <div class="policy-rule-text">
+        <strong>${escapeHTML(item.label)}</strong>
+        ${item.desc ? `<small>${escapeHTML(item.desc)}</small>` : ''}
+      </div>
+      <div class="policy-rule-controls">
+        ${item.enabled && !item.mandatory ? `
+        <div class="policy-severity-toggle" data-id="${item.id}">
+          <button class="policy-severity-btn${item.severity==='reset'?' is-active':''}" data-sev="reset" type="button">Full reset</button>
+          <button class="policy-severity-btn${item.severity==='slip'?' is-active':''}" data-sev="slip" type="button">Slip only</button>
+        </div>` : ''}
+        ${item.mandatory ? `<span class="policy-severity-btn is-active" style="pointer-events:none;">Full reset</span>` : ''}
+        ${item.mandatory
+          ? `<span class="policy-mandatory-badge" title="This rule can't be turned off">Mandatory</span>`
+          : `<span class="reminder-toggle${item.enabled?' is-on':''}" data-id="${item.id}" data-action="toggle-rule"></span>`}
+        ${item.custom ? `<button class="policy-remove-btn" data-id="${item.id}" data-action="remove-rule" aria-label="Remove rule">\u00d7</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('[data-action="toggle-rule"]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const it = items.find(x=>x.id===el.getAttribute('data-id'));
+      if(!it || it.mandatory) return;
+      it.enabled = !it.enabled;
+      state.policy.mode = 'custom';
+      state.policy.updatedAt = new Date().toISOString();
+      saveState();
+      renderPolicyPanel();
+    });
+  });
+  container.querySelectorAll('.policy-severity-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const wrap = btn.closest('.policy-severity-toggle');
+      const it = items.find(x=>x.id===wrap.getAttribute('data-id'));
+      if(!it) return;
+      it.severity = btn.getAttribute('data-sev');
+      state.policy.mode = 'custom';
+      state.policy.updatedAt = new Date().toISOString();
+      saveState();
+      renderPolicyPanel();
+    });
+  });
+  container.querySelectorAll('[data-action="remove-rule"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = items.findIndex(x=>x.id===btn.getAttribute('data-id'));
+      if(idx>-1) items.splice(idx,1);
+      state.policy.mode = 'custom';
+      state.policy.updatedAt = new Date().toISOString();
+      saveState();
+      renderPolicyPanel();
+    });
+  });
+}
+
+function renderSimplePolicyList(containerId, items){
+  const container = document.getElementById(containerId);
+  if(items.length === 0){
+    container.innerHTML = `<p class="backup-empty">Nothing here yet — add one below.</p>`;
+    return;
+  }
+  container.innerHTML = items.map(item=>`
+    <div class="backup-item">
+      <span class="backup-item-name" style="font-family:var(--font-body); color:var(--text); font-size:0.88rem;">${escapeHTML(item.label)}${item.desc ? ` <span style="color:var(--text-faint);">\u2014 ${escapeHTML(item.desc)}</span>` : ''}</span>
+      <button class="btn btn-ghost" data-id="${item.id}" style="padding:6px 12px; font-size:0.78rem; border:1px solid var(--panel-border-strong); flex-shrink:0;">Remove</button>
+    </div>
+  `).join('');
+  container.querySelectorAll('button[data-id]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = items.findIndex(x=>x.id===btn.getAttribute('data-id'));
+      if(idx>-1) items.splice(idx,1);
+      state.policy.updatedAt = new Date().toISOString();
+      saveState();
+      renderPolicyPanel();
+    });
+  });
+}
+
+let policyWired = false;
+function renderPolicyPanel(){
+  const p = state.policy;
+
+  const modeGrid = document.getElementById('policyModeGrid');
+  modeGrid.innerHTML = `
+    <button class="policy-mode-card${p.mode==='standard'?' is-active':''}" data-mode="standard" type="button">
+      <h4>Standard</h4>
+      <p>Pornography and masturbation count. The common baseline definition.</p>
+    </button>
+    <button class="policy-mode-card${p.mode==='hard'?' is-active':''}" data-mode="hard" type="button">
+      <h4>Hard Mode</h4>
+      <p>Standard, plus edging, sexting, erotica, and prolonged fantasizing.</p>
+    </button>
+    <button class="policy-mode-card${p.mode==='custom'?' is-active':''}" data-mode="custom" type="button">
+      <h4>Custom</h4>
+      <p>Configure every rule yourself below.</p>
+    </button>
+  `;
+  modeGrid.querySelectorAll('.policy-mode-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const m = card.getAttribute('data-mode');
+      if(m === 'custom'){
+        state.policy.mode = 'custom';
+        state.policy.updatedAt = new Date().toISOString();
+        saveState();
+        renderPolicyPanel();
+      } else {
+        applyPolicyPreset(m);
+      }
+    });
+  });
+
+  renderPolicyBreakRules();
+  renderSimplePolicyList('policyNotCountedList', p.notCounted);
+  renderSimplePolicyList('policyCommitmentsList', p.commitments);
+
+  const contractBox = document.getElementById('policyContractText');
+  if(contractBox) contractBox.textContent = buildPolicyContractText();
+  const updatedEl = document.getElementById('policyUpdatedAt');
+  if(updatedEl) updatedEl.textContent = p.updatedAt ? fmtDateTime(new Date(p.updatedAt)) : 'Not customized yet — using Standard defaults';
+
+  if(policyWired) return;
+  policyWired = true;
+
+  document.getElementById('btnAddPolicyRule').addEventListener('click', ()=>{
+    const input = document.getElementById('policyCustomRuleInput');
+    const val = input.value.trim();
+    if(!val) return;
+    state.policy.breakRules.push({ id:'custom_'+Date.now(), label:val, desc:'', enabled:true, severity:'reset', custom:true });
+    state.policy.mode = 'custom';
+    state.policy.updatedAt = new Date().toISOString();
+    saveState();
+    input.value = '';
+    renderPolicyPanel();
+  });
+
+  document.getElementById('btnAddPolicyNotCounted').addEventListener('click', ()=>{
+    const input = document.getElementById('policyCustomNotCountedInput');
+    const val = input.value.trim();
+    if(!val) return;
+    state.policy.notCounted.push({ id:'custom_'+Date.now(), label:val });
+    state.policy.updatedAt = new Date().toISOString();
+    saveState();
+    input.value = '';
+    renderPolicyPanel();
+  });
+
+  document.getElementById('btnAddPolicyCommitment').addEventListener('click', ()=>{
+    const input = document.getElementById('policyCustomCommitmentInput');
+    const val = input.value.trim();
+    if(!val) return;
+    state.policy.commitments.push({ id:'custom_'+Date.now(), label:val });
+    state.policy.updatedAt = new Date().toISOString();
+    saveState();
+    input.value = '';
+    renderPolicyPanel();
+  });
+
+  document.getElementById('btnCopyPolicyContract').addEventListener('click', ()=>{
+    const text = buildPolicyContractText();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text)
+        .then(()=> showToast('success', 'Copied to clipboard.'))
+        .catch(()=> showToast('warn', 'Could not copy — try selecting the text manually.'));
+    } else {
+      showToast('warn', 'Clipboard access isn\u2019t available in this browser.');
+    }
+  });
+
+  document.getElementById('btnDownloadPolicyContract').addEventListener('click', ()=>{
+    const blob = new Blob([buildPolicyContractText()], { type:'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `MAAR-Recovery-Policy-${todayISO()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast('success', 'Policy downloaded.');
   });
 }
 
@@ -3563,6 +4048,15 @@ function tallyField(logs, field){
   });
   return Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 }
+function tallyArrayField(logs, field){
+  const counts = {};
+  logs.forEach(l=>{
+    const arr = l[field];
+    if(!Array.isArray(arr)) return;
+    arr.forEach(v=>{ counts[v] = (counts[v]||0)+1; });
+  });
+  return Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+}
 
 function renderTriggersPanel(){
   const container = document.getElementById('triggersContent');
@@ -3582,6 +4076,7 @@ function renderTriggersPanel(){
   const timeCounts = tallyField(relapses, 'timeOfDay');
   const locationCounts = tallyField(relapses, 'location');
   const emotionCounts = tallyField(relapses, 'emotionalState');
+  const ruleCounts = tallyArrayField(relapses, 'ruleBreaks');
 
   const maxTrigger = triggerCounts[0] ? triggerCounts[0][1] : 1;
 
@@ -3602,6 +4097,7 @@ function renderTriggersPanel(){
       <div class="trigger-mini-card"><h4>Most common location</h4><p>${locationCounts[0] ? locationCounts[0][0] : '—'}</p></div>
       <div class="trigger-mini-card"><h4>Most common emotion before</h4><p>${emotionCounts[0] ? emotionCounts[0][0] : '—'}</p></div>
       <div class="trigger-mini-card"><h4>Average stress before</h4><p>${(relapses.reduce((a,l)=>a+(l.stressBefore||5),0)/relapses.length).toFixed(1)}/10</p></div>
+      <div class="trigger-mini-card"><h4>Most-broken policy rule</h4><p>${ruleCounts[0] ? ruleCounts[0][0] : '—'}</p></div>
     </div>
   `;
 }
@@ -3837,6 +4333,7 @@ h2{font-size:1.2rem;margin-top:32px;color:#0d6e54;}
 .meta{color:#666;font-size:0.85rem;margin-bottom:24px;}
 ul{padding-left:20px;}
 li{margin-bottom:8px;}
+pre{white-space:pre-wrap;font-family:Georgia,serif;background:#f7f7f5;border:1px solid #eee;border-radius:8px;padding:16px 18px;font-size:0.92rem;line-height:1.7;}
 </style></head><body>
 <h1>MAAR NO FAP — Recovery Report</h1>
 <p class="meta">Generated ${fmtDateLong(todayISO())} · Private, on-device summary</p>
@@ -3852,6 +4349,9 @@ li{margin-bottom:8px;}
 <h2>Initial assessment</h2>
 <div class="row"><span>Dependency index at start</span><span><strong>${state.profile ? state.profile.dependencyIndex : '—'}/100</strong></span></div>
 <div class="row"><span>Pattern classification</span><span><strong>${state.profile ? state.profile.band : '—'}</strong></span></div>
+
+<h2>Your recovery policy</h2>
+<pre>${escapeHTML(buildPolicyContractText())}</pre>
 
 <h2>Trigger analysis</h2>
 ${triggerCounts.length ? '<ul>'+triggerCounts.map(([l,c])=>`<li>${l}: ${c} occurrence${c===1?'':'s'}</li>`).join('')+'</ul>' : '<p>Not enough relapse entries yet for trigger analysis.</p>'}
