@@ -905,14 +905,18 @@ input[type="range"]::-moz-range-thumb{
 
 </style>
 </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1GEX4HVZQT"></script>
+  <!-- Google tag (gtag.js) — loaded defensively so ad-blockers / tracking-prevention
+       (which block this request with ERR_BLOCKED_BY_CLIENT) never affect the app -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1GEX4HVZQT" onerror="window.__gaBlocked=true;"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-1GEX4HVZQT');
+  try{
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ try{ dataLayer.push(arguments); }catch(e){} }
+    gtag('js', new Date());
+    gtag('config', 'G-1GEX4HVZQT');
+  }catch(e){
+    // Analytics unavailable (blocked by browser/extension) — app continues normally
+  }
 </script>
 <body>
 
