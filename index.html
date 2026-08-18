@@ -201,9 +201,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-bottom:1px solid var(--panel-border);
 }
 .nav-inner{ display:flex; align-items:center; justify-content:space-between; height:68px; }
-.nav-brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:600; font-size:18px; letter-spacing:0.01em; }
-.nav-mark{ width:10px; height:10px; border-radius:3px; background:linear-gradient(135deg, var(--emerald-soft), var(--gold)); box-shadow:0 0 14px var(--emerald-glow); flex-shrink:0; }
-.nav-name-sub{ color:var(--text-dim); font-weight:400; font-size:0.85em; }
+.nav-brand{ display:flex; align-items:center; gap:12px; font-family:var(--font-display); font-weight:600; font-size:19px; letter-spacing:0.01em; }
+.nav-mark{
+  width:36px; height:36px; flex-shrink:0;
+  filter:drop-shadow(0 4px 14px rgba(16,185,129,0.35));
+  animation:navMarkIn 0.8s var(--ease);
+}
+.nav-mark .nm-petal{ transform-origin:64px 64px; animation:navMarkBloom 2.6s var(--ease) 0.3s both; }
+.nav-mark .nm-petal:nth-child(2){ animation-delay:0.36s; }
+.nav-mark .nm-petal:nth-child(3){ animation-delay:0.42s; }
+.nav-mark .nm-petal:nth-child(4){ animation-delay:0.48s; }
+.nav-mark .nm-petal:nth-child(5){ animation-delay:0.54s; }
+.nav-mark .nm-petal:nth-child(6){ animation-delay:0.6s; }
+@keyframes navMarkBloom{ 0%{ opacity:0; transform:scale(0.5); } 100%{ opacity:1; transform:scale(1); } }
+@keyframes navMarkIn{ from{ opacity:0; transform:rotate(-8deg) scale(0.9); } to{ opacity:1; transform:rotate(0) scale(1); } }
+.nav-name{ display:flex; flex-direction:column; line-height:1.15; gap:1px; }
+.nav-name-main{ background:linear-gradient(120deg, var(--text) 40%, var(--emerald-soft)); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:1em; letter-spacing:0.015em; }
+.nav-name-sub{ color:var(--text-faint); font-weight:500; font-size:0.52em; letter-spacing:0.22em; text-transform:uppercase; font-family:var(--font-body); }
 .nav-status{ display:flex; align-items:baseline; gap:6px; font-family:var(--font-mono); }
 .nav-streak-num{ font-size:18px; font-weight:700; color:var(--emerald-soft); }
 .nav-streak-label{ font-size:12px; color:var(--text-dim); }
@@ -1187,8 +1201,35 @@ input[type="range"]::-moz-range-thumb{
 <nav id="mainNav" class="nav">
   <div class="nav-inner container">
     <div class="nav-brand">
-      <span class="nav-mark" aria-hidden="true"></span>
-      <span class="nav-name">MAAR <span class="nav-name-sub">NO FAP</span></span>
+      <svg class="nav-mark" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="navPetalGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8a6f1c"/>
+            <stop offset="48%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#bdf7e2"/>
+          </linearGradient>
+          <radialGradient id="navCoreGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fffdf5"/>
+            <stop offset="45%" stop-color="#e0c34a"/>
+            <stop offset="100%" stop-color="#8a6f1c" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="64" cy="64" r="44" fill="none" stroke="#e0c34a" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(64 64)">
+          <g class="nm-petal" transform="rotate(0)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.97"/></g>
+          <g class="nm-petal" transform="rotate(60)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.82"/></g>
+          <g class="nm-petal" transform="rotate(122)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.68"/></g>
+          <g class="nm-petal" transform="rotate(180)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.82"/></g>
+          <g class="nm-petal" transform="rotate(240)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.68"/></g>
+          <g class="nm-petal" transform="rotate(303)"><path d="M0,-7.5 C -6.5,-18 -5,-29.5 0,-34.5 C 5,-29.5 6.5,-18 0,-7.5 Z" fill="url(#navPetalGrad)" fill-opacity="0.92"/></g>
+        </g>
+        <circle cx="64" cy="64" r="8.5" fill="url(#navCoreGrad)"/>
+        <circle cx="64" cy="64" r="2.6" fill="#fffdf5"/>
+      </svg>
+      <span class="nav-name">
+        <span class="nav-name-main">MAAR</span>
+        <span class="nav-name-sub">No Fap · Recovery System</span>
+      </span>
     </div>
     <div class="nav-status" id="navStatus" hidden>
       <span class="nav-streak-num" id="navStreakNum">0</span>
