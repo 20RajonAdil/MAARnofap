@@ -1,3 +1,5 @@
+
+
 /*
   MAAR NO FAP — Service Worker
   Strategy:
@@ -11,11 +13,11 @@
       fallback, in localStorage — neither of which the service worker can
       or does read/cache.
 */
-
+ 
 const APP_VERSION = 'maar-no-fap-v1.0.0';
 const SHELL_CACHE = APP_VERSION + '-shell';
 const RUNTIME_CACHE = APP_VERSION + '-runtime';
-
+ 
 const SHELL_ASSETS = [
   './',
   './index.html',
@@ -28,7 +30,7 @@ const SHELL_ASSETS = [
   './icons/maskable-icon-512.png',
   './favicon.ico'
 ];
-
+ 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL_CACHE)
@@ -37,7 +39,7 @@ self.addEventListener('install', (event) => {
   );
   self.skipWaiting();
 });
-
+ 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -49,24 +51,24 @@ self.addEventListener('activate', (event) => {
     ).then(() => self.clients.claim())
   );
 });
-
+ 
 // Let the page force-activate a waiting worker after showing an "update ready" prompt.
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
-
+ 
 function isNavigationRequest(request) {
   return request.mode === 'navigate' ||
     (request.method === 'GET' && request.headers.get('accept')?.includes('text/html'));
 }
-
+ 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
-
+ 
   const url = new URL(request.url);
   const sameOrigin = url.origin === self.location.origin;
-
+ 
   // App shell / navigations: network-first so updates land quickly, offline falls back to cache.
   if (sameOrigin && (isNavigationRequest(request) || SHELL_ASSETS.some((a) => url.pathname.endsWith(a.replace('./', '/'))))) {
     event.respondWith(
@@ -82,7 +84,7 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
-
+ 
   // Everything else (fonts, external static assets): cache-first, refresh in background.
   event.respondWith(
     caches.match(request).then((cached) => {
