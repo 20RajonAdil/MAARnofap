@@ -194,6 +194,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none !important; }
 
+/* Full-width buttons (Emergency Mode, etc.) must be allowed to wrap their
+   label onto a second line on narrow screens — .btn's default nowrap is
+   correct for compact buttons, but forcing a long sentence onto one line
+   here was making the button (and the whole page) wider than the
+   viewport, which is what caused the "zoomed in" / cut-off text bug. */
+.btn[style*="width:100%"], .btn-emergency{
+  white-space:normal;
+  text-align:center;
+  line-height:1.35;
+}
+
 /* visually-hidden util for SR-only text */
 .vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
