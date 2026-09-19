@@ -54,3 +54,7 @@ Plain HTML, CSS, and JavaScript. No frameworks, no build tools, no dependencies.
 ## License
 
 All rights reserved. See [LICENSE.md](LICENSE.md) — no use, copying, modification, or distribution is permitted without explicit written permission from the copyright holder. The source being visible in this repository does not grant any rights to it.
+
+## Offline support
+
+This app works fully offline as a PWA — it caches itself for offline use automatically, no manual download step required.
